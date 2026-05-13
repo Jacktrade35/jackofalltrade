@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jack of all Trades</title>
+<title>Blog · Jack of all Trades</title>
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
@@ -105,31 +105,6 @@ body {
   height: 1px;
   background: linear-gradient(90deg, #4a9fd4 0%, rgba(74,159,212,0.1) 100%);
   margin: 0 36px 32px;
-}
-
-/* ── Nav line (home) ── */
-.nav-line {
-  padding: 0 36px;
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  font-family: 'Space Mono', monospace;
-  font-size: 18px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-.nav-link {
-  color: #4a9fd4;
-  text-decoration: none;
-  transition: color 0.15s, letter-spacing 0.15s;
-}
-.nav-link:hover {
-  color: #2a6aad;
-}
-.nav-sep {
-  color: #4a9fd4;
-  opacity: 0.4;
-  font-size: 16px;
 }
 
 /* ── Section label ── */
@@ -338,6 +313,46 @@ body {
   font-style: italic;
 }
 
+/* ── Blog posts ── */
+.posts {
+  padding: 0 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.post {
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(74,159,212,0.18);
+}
+.post:last-child {
+  border-bottom: none;
+}
+.post-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #4a9fd4;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.post-title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: #2a3340;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.post-body p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #4a5260;
+  margin-bottom: 12px;
+}
+.post-body p:last-child {
+  margin-bottom: 0;
+}
+
 /* ── Empty state ── */
 .empty-state {
   padding: 60px 36px;
@@ -397,25 +412,42 @@ body {
 
 <div class="page">
 
-  <div class="hero">
-    <div class="hero-tag">jack of all trades</div>
-    <h1 class="hero-title">Collective<br/>Intelligence</h1>
-    <p class="hero-tagline">We are all connected, woven into the same universe.</p>
-    <p class="hero-tagline italic">I make money of the market, never from other traders; If you insist, I do like cafe latte&nbsp;;></p>
+  <a href="index.html" class="back-link">← Back</a>
+
+  <div class="page-heading">
+    <div class="page-heading-num">03 / BLOG</div>
+    <h1 class="page-heading-title">Blog</h1>
+    <div class="page-heading-sub">Notes from the market</div>
   </div>
 
-  <div class="divider"></div>
+  <div class="posts">
 
-  <!-- Nav links -->
-  <div class="nav-line">
-    <a href="works.html" class="nav-link">Works</a>
-    <span class="nav-sep">/</span>
-    <a href="links.html" class="nav-link">Links</a>
-    <span class="nav-sep">/</span>
-    <a href="blog.html" class="nav-link">Blog</a>
+    <!-- ════════════════════════════════════════════════════════
+         BLOG POST TEMPLATE — copy this whole <article> block to add a new post.
+         Newest posts go at the TOP. Update the date, title, and body.
+         Use <p>...</p> for paragraphs.
+         ════════════════════════════════════════════════════════ -->
+
+    <article class="post">
+      <div class="post-date">May 12, 2026</div>
+      <h2 class="post-title">Hello, world.</h2>
+      <div class="post-body">
+        <p>This is the first entry. The plan is to keep notes here on what I see in the market — themes, setups, mistakes, lessons.</p>
+        <p>Nothing fancy, no hot takes. Just observations from someone trying to do this thing well over a long time.</p>
+        <p>If something here is useful to you — buy me a latte, share with a friend, or just lurk. Either way, glad you're here.</p>
+      </div>
+    </article>
+
+    <article class="post">
+      <div class="post-date">Coming soon</div>
+      <h2 class="post-title">Why I built this site</h2>
+      <div class="post-body">
+        <p>A short note on what this site is and isn't. (Draft.)</p>
+      </div>
+    </article>
+
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <span class="footer-copy">// 2026 © Jackofalltrades</span>
     <span class="footer-version">v2</span>
@@ -434,9 +466,9 @@ body {
   const BLUE_COLORS = ['#C2D9FF', '#C2F2FF', '#99C0FF', '#66A0FF', '#00A1CC'];
   const ACCENT = '#FF33AA';
 
-  const MODE = "circle";
-  const GLYPHS = [];
-  const SPECIAL = "";
+  const MODE = "glyph";
+  const GLYPHS = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  const SPECIAL = "j";
   const REGULAR_GLYPHS = GLYPHS.filter(g => g !== SPECIAL);
 
   let W, H, nodes;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jack of all Trades</title>
+<title>Works · Jack of all Trades</title>
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
@@ -105,31 +105,6 @@ body {
   height: 1px;
   background: linear-gradient(90deg, #4a9fd4 0%, rgba(74,159,212,0.1) 100%);
   margin: 0 36px 32px;
-}
-
-/* ── Nav line (home) ── */
-.nav-line {
-  padding: 0 36px;
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  font-family: 'Space Mono', monospace;
-  font-size: 18px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-.nav-link {
-  color: #4a9fd4;
-  text-decoration: none;
-  transition: color 0.15s, letter-spacing 0.15s;
-}
-.nav-link:hover {
-  color: #2a6aad;
-}
-.nav-sep {
-  color: #4a9fd4;
-  opacity: 0.4;
-  font-size: 16px;
 }
 
 /* ── Section label ── */
@@ -397,25 +372,44 @@ body {
 
 <div class="page">
 
-  <div class="hero">
-    <div class="hero-tag">jack of all trades</div>
-    <h1 class="hero-title">Collective<br/>Intelligence</h1>
-    <p class="hero-tagline">We are all connected, woven into the same universe.</p>
-    <p class="hero-tagline italic">I make money of the market, never from other traders; If you insist, I do like cafe latte&nbsp;;></p>
+  <a href="index.html" class="back-link">← Back</a>
+
+  <div class="page-heading">
+    <div class="page-heading-num">01 / WORKS</div>
+    <h1 class="page-heading-title">Works</h1>
+    <div class="page-heading-sub">Indicators, dashboards & tools</div>
   </div>
 
-  <div class="divider"></div>
+  <a class="work-item" href="https://www.tradingview.com/u/jackTD25/#published-scripts" target="_blank">
+    <div class="work-diamond"></div>
+    <div class="work-body">
+      <span class="work-label">TradingView</span>
+      <span class="work-desc">Links to indicators</span>
+    </div>
+    <span class="work-tag">Trading</span>
+    <span class="work-arrow">→</span>
+  </a>
 
-  <!-- Nav links -->
-  <div class="nav-line">
-    <a href="works.html" class="nav-link">Works</a>
-    <span class="nav-sep">/</span>
-    <a href="links.html" class="nav-link">Links</a>
-    <span class="nav-sep">/</span>
-    <a href="blog.html" class="nav-link">Blog</a>
-  </div>
+  <a class="work-item" href="FTM_Indicator_Guide.html" target="_blank">
+    <div class="work-diamond"></div>
+    <div class="work-body">
+      <span class="work-label">Indicator Manual</span>
+      <span class="work-desc">FTM Indicator · Documentation & usage guide</span>
+    </div>
+    <span class="work-tag">Docs</span>
+    <span class="work-arrow">→</span>
+  </a>
 
-  <!-- Footer -->
+  <a class="work-item disabled">
+    <div class="work-diamond"></div>
+    <div class="work-body">
+      <span class="work-label">Swing Trader Dashboard</span>
+      <span class="work-desc">Track & manage swing trades · Coming soon</span>
+    </div>
+    <span class="work-tag">Tool</span>
+    <span class="work-arrow">→</span>
+  </a>
+
   <div class="footer">
     <span class="footer-copy">// 2026 © Jackofalltrades</span>
     <span class="footer-version">v2</span>
@@ -434,9 +428,9 @@ body {
   const BLUE_COLORS = ['#C2D9FF', '#C2F2FF', '#99C0FF', '#66A0FF', '#00A1CC'];
   const ACCENT = '#FF33AA';
 
-  const MODE = "circle";
-  const GLYPHS = [];
-  const SPECIAL = "";
+  const MODE = "glyph";
+  const GLYPHS = ["α","β","γ","δ","ε","ζ","η","θ","κ","λ","μ","ν","ξ","π","ρ","σ","τ","φ","χ","ψ","ω","Δ","Σ","Φ","Ω","Π","Λ","Θ"];
+  const SPECIAL = "γ";
   const REGULAR_GLYPHS = GLYPHS.filter(g => g !== SPECIAL);
 
   let W, H, nodes;

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTM Indicator — User Guide</title>
+<style>
+  :root {
+    --bg:      #0d1117;
+    --card:    #161b22;
+    --card2:   #1c2128;
+    --border:  #30363d;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+    --green:   #3fb950;
+    --red:     #f85149;
+    --yellow:  #d29922;
+    --blue:    #58a6ff;
+    --purple:  #bc8cff;
+    --orange:  #ffa657;
+
+    --t0: #8338EC;  --t0bg: #1a0a2e;
+    --t1: #7C86FF;  --t1bg: #1a1c3a;
+    --t2: #A3B3FF;  --t2bg: #1a1e3a;
+    --t3: #BEDBFF;  --t3bg: #162030;
+    --a1: #FFB300;  --a1bg: #2a1c00;
+    --a2: #FFDF20;  --a2bg: #2a2400;
+    --a3: #FFF085;  --a3bg: #252200;
+    --r1: #4FC3F7;  --r1bg: #0a1f2a;
+    --a4: #FFD740;  --a4bg: #2a2200;
+    --s3: #FCCEE8;  --s3bg: #2a1520;
+    --s2: #FDA5D5;  --s2bg: #2d1220;
+    --s1: #FB64B6;  --s1bg: #2d0d1e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  /* ── NAV ── */
+  .topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--card); border-bottom: 1px solid var(--border);
+    padding: 0 24px; display: flex; align-items: center; gap: 0; overflow-x: auto;
+  }
+  .nav-logo { font-size: 15px; font-weight: 800; color: var(--t1); letter-spacing: -0.5px; white-space: nowrap; padding: 14px 20px 14px 0; border-right: 1px solid var(--border); margin-right: 4px; }
+  .nav-logo span { color: var(--a1); }
+  .nav-link { font-size: 12px; font-weight: 600; color: var(--muted); padding: 14px 14px; white-space: nowrap; text-decoration: none; transition: color 0.15s; border-bottom: 2px solid transparent; }
+  .nav-link:hover { color: var(--text); }
+  .nav-ver { margin-left: auto; font-size: 11px; color: var(--muted); background: #21262d; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; white-space: nowrap; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; display: flex; flex-direction: column; gap: 48px; }
+
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 20px 0 8px; }
+  .hero-title { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+  .hero-title .ftm { color: var(--t1); }
+  .hero-sub { font-size: 15px; color: var(--muted); max-width: 560px; margin: 0 auto 20px; line-height: 1.6; }
+  .hero-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .hero-pill { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 12px; border: 1px solid; }
+
+  /* ── SECTION ── */
+  .section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+  .section-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .section-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+
+  /* ── SIGNAL GRID ── */
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .sig-card { border-radius: 10px; padding: 16px; border: 1px solid; transition: transform 0.15s; }
+  .sig-card:hover { transform: translateY(-2px); }
+  .sig-badge { display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; border-radius: 8px; width: 44px; height: 44px; margin-bottom: 10px; letter-spacing: 0.5px; }
+  .sig-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .sig-desc { font-size: 11px; line-height: 1.5; opacity: 0.8; margin-bottom: 8px; }
+  .sig-action { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+
+  .sig-t0 { background: var(--t0bg); border-color: var(--t0); }
+  .sig-t0 .sig-badge { background: var(--t0); color: #fff; }
+  .sig-t0 .sig-name, .sig-t0 .sig-action { color: var(--t0); }
+
+  .sig-t1 { background: var(--t1bg); border-color: var(--t1); }
+  .sig-t1 .sig-badge { background: var(--t1); color: #0d0e2a; }
+  .sig-t1 .sig-name, .sig-t1 .sig-action { color: var(--t1); }
+
+  .sig-t2 { background: var(--t2bg); border-color: var(--t2); }
+  .sig-t2 .sig-badge { background: var(--t2); color: #0d0e2a; }
+  .sig-t2 .sig-name, .sig-t2 .sig-action { color: var(--t2); }
+
+  .sig-t3 { background: var(--t3bg); border-color: var(--t3); }
+  .sig-t3 .sig-badge { background: var(--t3); color: #0a1520; }
+  .sig-t3 .sig-name, .sig-t3 .sig-action { color: var(--t3); }
+
+  .sig-a1 { background: var(--a1bg); border-color: var(--a1); }
+  .sig-a1 .sig-badge { background: var(--a1); color: #1a1400; }
+  .sig-a1 .sig-name, .sig-a1 .sig-action { color: var(--a1); }
+
+  .sig-a2 { background: var(--a2bg); border-color: var(--a2); }
+  .sig-a2 .sig-badge { background: var(--a2); color: #1a1400; }
+  .sig-a2 .sig-name, .sig-a2 .sig-action { color: var(--a2); }
+
+  .sig-a3 { background: var(--a3bg); border-color: var(--a3); }
+  .sig-a3 .sig-badge { background: var(--a3); color: #1a1600; }
+  .sig-a3 .sig-name, .sig-a3 .sig-action { color: var(--a3); }
+
+  .sig-r1 { background: var(--r1bg); border-color: var(--r1); }
+  .sig-r1 .sig-badge { background: var(--r1); color: #001a24; }
+  .sig-r1 .sig-name, .sig-r1 .sig-action { color: var(--r1); }
+
+  .sig-a4 { background: var(--a4bg); border-color: var(--a4); }
+  .sig-a4 .sig-badge { background: var(--a4); color: #1a1400; }
+  .sig-a4 .sig-name, .sig-a4 .sig-action { color: var(--a4); }
+
+  .sig-s3 { background: var(--s3bg); border-color: var(--s3); }
+  .sig-s3 .sig-badge { background: var(--s3); color: #2a0010; }
+  .sig-s3 .sig-name, .sig-s3 .sig-action { color: var(--s3); }
+
+  .sig-s2 { background: var(--s2bg); border-color: var(--s2); }
+  .sig-s2 .sig-badge { background: var(--s2); color: #2d0010; }
+  .sig-s2 .sig-name, .sig-s2 .sig-action { color: var(--s2); }
+
+  .sig-s1 { background: var(--s1bg); border-color: var(--s1); }
+  .sig-s1 .sig-badge { background: var(--s1); color: #1a0010; }
+  .sig-s1 .sig-name, .sig-s1 .sig-action { color: var(--s1); }
+
+  /* ── SCORE FORMULA ── */
+  .formula-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .formula-bar { flex: 1; min-width: 120px; background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+  .f-pct { font-size: 22px; font-weight: 800; }
+  .f-name { font-size: 12px; font-weight: 600; color: var(--text); margin: 4px 0 2px; }
+  .f-desc { font-size: 10px; color: var(--muted); }
+  .f-bar-fill { height: 4px; border-radius: 2px; margin-top: 8px; }
+
+  .score-zones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+  .zone-card { background: var(--card2); border-radius: 8px; padding: 12px 14px; border-left: 3px solid; }
+  .zone-range { font-size: 18px; font-weight: 800; margin-bottom: 3px; }
+  .zone-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .zone-desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: #21262d; color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  tbody td { padding: 11px 16px; border-bottom: 1px solid #21262d; vertical-align: top; line-height: 1.5; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #1c2128; }
+  .td-num { font-size: 15px; font-weight: 800; width: 36px; }
+  .td-code { font-family: 'SF Mono', monospace; font-size: 11px; background: #21262d; border-radius: 4px; padding: 1px 6px; white-space: nowrap; color: var(--blue); }
+  .td-chip { display: inline-block; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 8px; margin-right: 4px; }
+
+  /* ── TRADE CYCLE ── */
+  .cycle-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .cycle-step { flex: 1; min-width: 120px; padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); position: relative; }
+  .cycle-step:last-child { border-right: none; }
+  .cycle-arrow { position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); z-index: 2; display: none; }
+  .cycle-icon { font-size: 22px; margin-bottom: 6px; }
+  .cycle-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .cycle-sub { font-size: 10px; color: var(--muted); line-height: 1.4; }
+  .cycle-badge { display: inline-block; font-size: 10px; font-weight: 800; border-radius: 4px; padding: 2px 7px; margin-bottom: 6px; }
+
+  .add-branch { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-top: 12px; display: flex; align-items: flex-start; gap: 16px; }
+  .add-branch-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .add-branch-text h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--a1); }
+  .add-branch-text p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── DASHBOARD READINGS ── */
+  .dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .dash-card { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .dash-key { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .dash-val { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .dash-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .dash-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+  .dash-chip { font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 7px; }
+
+  /* ── STAGE ANALYSIS ── */
+  .stage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .stage-card { border-radius: 10px; padding: 18px 16px; border: 1px solid; }
+  .stage-num { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+  .stage-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stage-cond { font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+  .stage-ftm { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+
+  /* ── SETTINGS ── */
+  .settings-group { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .settings-group-header { background: #21262d; padding: 10px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
+  .settings-group-name { font-size: 13px; font-weight: 700; }
+  .settings-group-desc { font-size: 11px; color: var(--muted); }
+  .settings-row { display: grid; grid-template-columns: 1fr 80px 2fr; gap: 0; border-bottom: 1px solid #21262d; }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row > div { padding: 10px 16px; font-size: 12px; }
+  .settings-name { font-weight: 600; }
+  .settings-default { color: var(--blue); font-weight: 700; font-family: 'SF Mono', monospace; font-size: 11px; }
+  .settings-tip { color: var(--muted); line-height: 1.5; }
+
+  /* ── TIPS ── */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .tip-card { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .tip-q { font-size: 12px; font-weight: 700; color: var(--yellow); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+  .tip-a { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .tip-a strong { color: var(--text); }
+
+  /* ── DIVIDER ── */
+  hr.section-div { border: none; border-top: 1px solid var(--border); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .formula-row { flex-direction: column; }
+    .score-zones, .stage-grid { grid-template-columns: repeat(2, 1fr); }
+    .settings-row { grid-template-columns: 1fr 60px; }
+    .settings-tip { display: none; }
+    .cycle-flow { flex-direction: column; }
+    .cycle-step { border-right: none; border-bottom: 1px solid var(--border); }
+    .cycle-step:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-logo">FTM <span>v3.1.6</span></div>
+  <a class="nav-link" href="#signals">Signals</a>
+  <a class="nav-link" href="#score">A/D Score</a>
+  <a class="nav-link" href="#triggers">Triggers</a>
+  <a class="nav-link" href="#warnings">Warnings</a>
+  <a class="nav-link" href="#cycle">Trade Cycle</a>
+  <a class="nav-link" href="#dashboard">Dashboard</a>
+  <a class="nav-link" href="#stages">Stages</a>
+  <a class="nav-link" href="#settings">Settings</a>
+  <a class="nav-link" href="#tips">Tips</a>
+  <span class="nav-ver">Pine Script v5</span>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-title"><span class="ftm">FTM</span> Indicator</div>
+    <div class="hero-sub">Flow / Trend / Momentum — combines four institutional flow indicators with trend and relative strength into a single A/D Score, firing color-coded entry, add, and exit labels on any ticker and timeframe.</div>
+    <div class="hero-pills">
+      <span class="hero-pill" style="color:var(--t1);border-color:var(--t1);background:var(--t1bg)">3 Entry signals (T1/T2/T3)</span>
+      <span class="hero-pill" style="color:var(--a1);border-color:var(--a1);background:var(--a1bg)">4 Add signals</span>
+      <span class="hero-pill" style="color:var(--r1);border-color:var(--r1);background:var(--r1bg)">R1 Expansion</span>
+      <span class="hero-pill" style="color:var(--s1);border-color:var(--s1);background:var(--s1bg)">3 Exit signals</span>
+      <span class="hero-pill" style="color:var(--blue);border-color:var(--blue);background:#1a2332">A/D Score 0–100</span>
+      <span class="hero-pill" style="color:var(--t0);border-color:var(--t0);background:var(--t0bg)">VGB <strong>[+]</strong> Badge</span>
+      <span class="hero-pill" style="color:var(--a1);border-color:var(--a1);background:var(--a1bg)">RMV <strong>[*]</strong> Badge</span>
+      <span class="hero-pill" style="color:var(--yellow);border-color:var(--yellow);background:#2a2400">ATR Trail Stop</span>
+    </div>
+  </div>
+
+  <hr class="section-div">
+
+  <!-- 1. SIGNALS -->
+  <section id="signals">
+    <div class="section-label">Section 1</div>
+    <div class="section-title">Signal Quick Reference</div>
+    <div class="section-sub">All 11 signals at a glance. Entry and add signals appear below the bar; exit signals appear above. Priority order when multiple conditions fire simultaneously: S1 → S2 → S3 → T1 → T2 → T3 → A1 → R1 → A2 → A3 → A4.</div>
+
+    <div style="background:var(--t0bg);border:1px solid var(--t0);border-radius:10px;padding:14px 18px;margin-bottom:24px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="font-size:22px;flex-shrink:0;">🏷️</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--t0);margin-bottom:4px;">Quality Badges on Labels (new in v3.1.x)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;">Entry and add labels can carry a quality badge that reflects the structural backdrop at the moment of firing.<br>
+          <strong style="color:var(--t0)">[+]</strong> on a T signal — fired while the Volatility Gaussian Band structure is flipping bullish (basis turning up + upper band expanding). Treat as a higher-conviction version of the same signal.<br>
+          <strong style="color:var(--a1)">[*]</strong> on a T signal / <strong style="color:var(--a1)">[·]</strong> on an A signal — fired from a tight RMV zone, i.e. compressed volatility just before expansion. Often the cleanest entries.</div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t1);margin-bottom:10px;">📈 Entry Signals (below bar)</div>
+    <div class="signal-grid" style="margin-bottom:20px;">
+      <div class="sig-card sig-t1">
+        <div class="sig-badge">T1</div>
+        <div class="sig-name">Max Conviction</div>
+        <div class="sig-desc">All 5 triggers active <em>plus</em> a volume qualifier (pocket pivot or elevated relative volume). Institutional footprint confirmed.</div>
+        <div class="sig-action">→ Full position</div>
+      </div>
+      <div class="sig-card sig-t2">
+        <div class="sig-badge">T2</div>
+        <div class="sig-name">Strong Entry</div>
+        <div class="sig-desc">4 or 5 of the 5 triggers active. No volume qualifier required. Trend and flow aligned.</div>
+        <div class="sig-action">→ Full position</div>
+      </div>
+      <div class="sig-card sig-t3">
+        <div class="sig-badge">T3</div>
+        <div class="sig-name">Starter Entry</div>
+        <div class="sig-desc">3 of 5 triggers active. Early setup — conditions improving but not fully confirmed.</div>
+        <div class="sig-action">→ Half / starter</div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--a1);margin-bottom:10px;">➕ Add / Continuation Signals (below bar)</div>
+    <div class="signal-grid" style="margin-bottom:20px;">
+      <div class="sig-card sig-a1">
+        <div class="sig-badge">A1</div>
+        <div class="sig-name">Breakout from Squeeze</div>
+        <div class="sig-desc">Close breaks above a pivot high after a tight volatility squeeze, confirmed by elevated relative volume. Fires in Stage 1 or Stage 2 — catches the tight-base breakout early. Bypasses entry lock.</div>
+        <div class="sig-action">→ Catch the move (rarest)</div>
+      </div>
+      <div class="sig-card sig-a2">
+        <div class="sig-badge">A2</div>
+        <div class="sig-name">Pocket Pivot Continuation</div>
+        <div class="sig-desc">Today's up-volume overwhelms the strongest down-volume bar of the recent window, with elevated RVOL. Requires Stage 2 and a healthy A/D Score. Bypasses entry lock.</div>
+        <div class="sig-action">→ Add on institutional strength</div>
+      </div>
+      <div class="sig-card sig-a3">
+        <div class="sig-badge">A3</div>
+        <div class="sig-name">Pullback Bounce</div>
+        <div class="sig-desc">Price tagged a key EMA, then reclaimed it on a green bar with volume confirmation. Requires Stage 2 and a healthy A/D Score. Bypasses entry lock.</div>
+        <div class="sig-action">→ Add on reset</div>
+      </div>
+      <div class="sig-card sig-r1">
+        <div class="sig-badge">R1</div>
+        <div class="sig-name">Phase 3 Expansion</div>
+        <div class="sig-desc">ICT Power of 3 breakout — a prior tight base resolves with a high-volume breakout closing in the upper part of the range. Stage 1 or 2. Strong-conviction blast-off signal. Bypasses entry lock.</div>
+        <div class="sig-action">→ Aggressive add / breakout entry</div>
+      </div>
+      <div class="sig-card sig-a4">
+        <div class="sig-badge">A4</div>
+        <div class="sig-name">Trend Ride</div>
+        <div class="sig-desc">Stock has held cleanly above the fast EMA for several weeks and just printed a new local high on above-average volume. Cooldown prevents clustering. Bypasses entry lock.</div>
+        <div class="sig-action">→ Add to smooth uptrend</div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--s1);margin-bottom:10px;">📉 Exit Signals (above bar)</div>
+    <div class="signal-grid">
+      <div class="sig-card sig-s3">
+        <div class="sig-badge">S3</div>
+        <div class="sig-name">Early Warning</div>
+        <div class="sig-desc">Close below the fast EMA with enough active warnings to confirm weakness. Only fires while in position. Shake-out filter suppresses false fires; strong-trend suppression reduces noise in clear uptrends.</div>
+        <div class="sig-action">→ Trim 1/3 position</div>
+      </div>
+      <div class="sig-card sig-s2">
+        <div class="sig-badge">S2</div>
+        <div class="sig-name">Clear Weakness</div>
+        <div class="sig-desc">Intermediate-trend EMA broken, confirmed by active warnings. Only fires while in position and fires once per trade cycle. Shake-out filter prevents false reads on wick sweeps.</div>
+        <div class="sig-action">→ Exit half position</div>
+      </div>
+      <div class="sig-card sig-s1">
+        <div class="sig-badge">S1</div>
+        <div class="sig-name">Capitulation</div>
+        <div class="sig-desc">Deep break below the intermediate EMA, OR A/D Score collapsed, OR most warnings firing simultaneously. Full distribution signal — clears the position state and resets the S2/S3 cycle locks.</div>
+        <div class="sig-action">→ Full exit. Resets cycle.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 2. A/D SCORE -->
+  <section id="score">
+    <div class="section-label">Section 2</div>
+    <div class="section-title">The A/D Score (0–100)</div>
+    <div class="section-sub">A composite accumulation/distribution score derived from four institutional flow indicators plus price-to-MA position. Higher = more institutional buying pressure.</div>
+
+    <div class="formula-row">
+      <div class="formula-bar">
+        <div class="f-pct" style="color:#79c0ff">Primary</div>
+        <div class="f-name">OBV</div>
+        <div class="f-desc">On-Balance Volume momentum &amp; divergence</div>
+        <div class="f-bar-fill" style="background:#79c0ff;width:90%"></div>
+      </div>
+      <div class="formula-bar">
+        <div class="f-pct" style="color:#3fb950">Strong</div>
+        <div class="f-name">CMF</div>
+        <div class="f-desc">Chaikin Money Flow direction</div>
+        <div class="f-bar-fill" style="background:#3fb950;width:75%"></div>
+      </div>
+      <div class="formula-bar">
+        <div class="f-pct" style="color:#ffa657">Moderate</div>
+        <div class="f-name">MFI</div>
+        <div class="f-desc">Money Flow Index oscillator</div>
+        <div class="f-bar-fill" style="background:#ffa657;width:55%"></div>
+      </div>
+      <div class="formula-bar">
+        <div class="f-pct" style="color:#bc8cff">Support</div>
+        <div class="f-name">U/D Vol</div>
+        <div class="f-desc">Up-volume vs down-volume ratio</div>
+        <div class="f-bar-fill" style="background:#bc8cff;width:40%"></div>
+      </div>
+      <div class="formula-bar">
+        <div class="f-pct" style="color:#d29922">Trend</div>
+        <div class="f-name">MA Position</div>
+        <div class="f-desc">Position relative to the intermediate EMA</div>
+        <div class="f-bar-fill" style="background:#d29922;width:25%"></div>
+      </div>
+    </div>
+
+    <div class="score-zones">
+      <div class="zone-card" style="border-color:var(--green)">
+        <div class="zone-range" style="color:var(--green)">High</div>
+        <div class="zone-label" style="color:var(--green)">Accumulation</div>
+        <div class="zone-desc">Strong institutional buying. Satisfies the score gate for entry signals.</div>
+      </div>
+      <div class="zone-card" style="border-color:var(--blue)">
+        <div class="zone-range" style="color:var(--blue)">Mid</div>
+        <div class="zone-label" style="color:var(--blue)">Building</div>
+        <div class="zone-desc">Mild positive flow. Can still support T2/T3 if other triggers align.</div>
+      </div>
+      <div class="zone-card" style="border-color:var(--orange)">
+        <div class="zone-range" style="color:var(--orange)">Soft</div>
+        <div class="zone-label" style="color:var(--orange)">Caution</div>
+        <div class="zone-desc">Mixed signals. Flow softening — avoid new entries.</div>
+      </div>
+      <div class="zone-card" style="border-color:var(--red)">
+        <div class="zone-range" style="color:var(--red)">Low</div>
+        <div class="zone-label" style="color:var(--red)">Distribution</div>
+        <div class="zone-desc">Institutional selling likely. Contributes to the S1 capitulation gate.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 3. TRIGGERS -->
+  <section id="triggers">
+    <div class="section-label">Section 3</div>
+    <div class="section-title">The 5 Entry Triggers</div>
+    <div class="section-sub">Each trigger is boolean (on/off). The total count (0–5) determines whether T1, T2, or T3 fires. More triggers = stronger signal conviction.</div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Trigger</th>
+            <th>Condition</th>
+            <th>What it measures</th>
+            <th>Signal contribution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-num" style="color:var(--blue)">1</td>
+            <td><strong>Score Gate</strong></td>
+            <td><span class="td-code">A/D Score in accumulation</span></td>
+            <td>Composite flow is in the accumulation zone</td>
+            <td><span class="td-chip" style="background:var(--t1bg);color:var(--t1)">T1/T2/T3</span> Adjustable threshold</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--blue)">2</td>
+            <td><strong>CMF Crossover</strong></td>
+            <td><span class="td-code">CMF freshly positive</span></td>
+            <td>Money flow just turned positive — fresh accumulation</td>
+            <td><span class="td-chip" style="background:var(--t1bg);color:var(--t1)">T1/T2/T3</span> Momentum inflection</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--blue)">3</td>
+            <td><strong>OBV Strength</strong></td>
+            <td><span class="td-code">OBV rising or diverging</span></td>
+            <td>On-Balance Volume rising with or against price (bullish divergence scored extra)</td>
+            <td><span class="td-chip" style="background:var(--t1bg);color:var(--t1)">T1/T2/T3</span> Volume conviction</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--blue)">4</td>
+            <td><strong>Relative Strength</strong></td>
+            <td><span class="td-code">Outperforming benchmark</span></td>
+            <td>Stock outperforming SPY over the performance lookback</td>
+            <td><span class="td-chip" style="background:var(--t1bg);color:var(--t1)">T1/T2/T3</span> Leadership filter</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--blue)">5</td>
+            <td><strong>Trend Gate</strong></td>
+            <td><span class="td-code">Above intermediate EMA</span></td>
+            <td>Price is above the intermediate trend line</td>
+            <td><span class="td-chip" style="background:var(--t1bg);color:var(--t1)">T1/T2/T3</span> Trend alignment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:16px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--yellow)">⚡ T1 Volume Qualifier (bonus gate)</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">T1 requires <strong style="color:var(--text)">all 5 triggers PLUS</strong> a volume confirmation — either a pocket pivot (up-volume swamping recent down-volume) <em>or</em> elevated relative volume. If 5/5 triggers fire without that volume confirmation, the signal downgrades to <strong style="color:var(--t2)">T2</strong>.</div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 4. WARNINGS -->
+  <section id="warnings">
+    <div class="section-label">Section 4</div>
+    <div class="section-title">The 6 Exit Warnings</div>
+    <div class="section-sub">Each warning is boolean. The count (0–6) gates S3, S2, and S1 exit signals alongside the crossunder conditions. Color in the dashboard: green → yellow → orange → red as warnings accumulate.</div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Warning</th>
+            <th>Condition</th>
+            <th>What it signals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-num" style="color:var(--red)">1</td>
+            <td><strong>Score Softening</strong></td>
+            <td><span class="td-code">A/D Score below accumulation</span></td>
+            <td>Composite flow leaving the accumulation zone — institutional interest fading</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--red)">2</td>
+            <td><strong>Money Flow Negative</strong></td>
+            <td><span class="td-code">CMF turned negative</span></td>
+            <td>Chaikin Money Flow flipped — net outflows on the candle range</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--red)">3</td>
+            <td><strong>OBV Stalling</strong></td>
+            <td><span class="td-code">OBV not rising</span></td>
+            <td>On-Balance Volume no longer rising — buyers not committing volume to up-moves</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--red)">4</td>
+            <td><strong>Below Fast EMA</strong></td>
+            <td><span class="td-code">Close under EMA20</span></td>
+            <td>Short-term trend broken — stock under the fast moving average</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--red)">5</td>
+            <td><strong>Below Intermediate EMA</strong></td>
+            <td><span class="td-code">Close under EMA50</span></td>
+            <td>Intermediate trend broken — more serious structural breakdown</td>
+          </tr>
+          <tr>
+            <td class="td-num" style="color:var(--red)">6</td>
+            <td><strong>RS Off</strong></td>
+            <td><span class="td-code">Underperforming benchmark</span></td>
+            <td>Stock underperforming SPY — relative strength gone, sector/market rotation away</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="background:var(--s3bg);border:1px solid var(--s3);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--s3);margin-bottom:4px;">S3 fires when:</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Close under fast EMA with enough warnings active to confirm weakness</div>
+      </div>
+      <div style="background:var(--s2bg);border:1px solid var(--s2);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--s2);margin-bottom:4px;">S2 fires when:</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Intermediate EMA crossunder <em>OR</em> close under it with warnings stacking</div>
+      </div>
+      <div style="background:var(--s1bg);border:1px solid var(--s1);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--s1);margin-bottom:4px;">S1 fires when:</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Deep break of the intermediate EMA <em>OR</em> Score collapsed <em>OR</em> most warnings active</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 5. TRADE CYCLE -->
+  <section id="cycle">
+    <div class="section-label">Section 5</div>
+    <div class="section-title">Trade Cycle Flow</div>
+    <div class="section-sub">How all the signals interact across the life of a trade. S1/S2/S3 only fire while in position (S2/S3 once per cycle via Done flags). S1 resets everything. A1/A2/A3/R1/A4 bypass the entry lock and can fire at any point while the stage is active. Shake-out detection suppresses S signals on wick sweeps that close back strong.</div>
+
+    <div class="cycle-flow">
+      <div class="cycle-step" style="background:#0d1117">
+        <div class="cycle-icon">⏳</div>
+        <div class="cycle-badge" style="background:#21262d;color:var(--muted)">FLAT</div>
+        <div class="cycle-title">No Position</div>
+        <div class="cycle-sub">Watching. Entry lock off. All T signals eligible.</div>
+      </div>
+      <div class="cycle-step" style="background:var(--t3bg)">
+        <div class="cycle-icon">📈</div>
+        <div class="cycle-badge" style="background:var(--t3);color:#0a1520">T3 / T2 / T1</div>
+        <div class="cycle-title">Entry Signal</div>
+        <div class="cycle-sub">Position opens. Lock activates — no new T signals until S1.</div>
+      </div>
+      <div class="cycle-step" style="background:var(--s3bg)">
+        <div class="cycle-icon">✂️</div>
+        <div class="cycle-badge" style="background:var(--s3);color:#2a0010">S3</div>
+        <div class="cycle-title">Trim 1/3</div>
+        <div class="cycle-sub">Fires once per cycle. S3Done flag set — won't repeat.</div>
+      </div>
+      <div class="cycle-step" style="background:var(--s2bg)">
+        <div class="cycle-icon">⚖️</div>
+        <div class="cycle-badge" style="background:var(--s2);color:#2d0010">S2</div>
+        <div class="cycle-title">Exit Half</div>
+        <div class="cycle-sub">Fires once per cycle. S2Done flag set — won't repeat.</div>
+      </div>
+      <div class="cycle-step" style="background:var(--s1bg)">
+        <div class="cycle-icon">🚨</div>
+        <div class="cycle-badge" style="background:var(--s1);color:#1a0010">S1</div>
+        <div class="cycle-title">Full Exit</div>
+        <div class="cycle-sub">Clears inPosition. Resets S2Done + S3Done. Lock lifted.</div>
+      </div>
+    </div>
+
+    <div class="add-branch">
+      <div class="add-branch-icon">➕</div>
+      <div class="add-branch-text">
+        <h4>A1 / R1 / A2 / A3 / A4 Add Signals — run in parallel, bypass the lock</h4>
+        <p>While locked (in position, no T signals allowed), all five add signals still fire freely. <strong style="color:var(--a1)">A1</strong> fires from a tight base in Stage 1 or 2 — catches the squeeze breakout. <strong style="color:var(--r1)">R1</strong> is the ICT Phase 3 blast-off — a high-volume breakout out of a prior base, closing strong in the upper part of the range. <strong style="color:var(--a2)">A2</strong> pocket pivots and <strong style="color:var(--a3)">A3</strong> pullback bounces require Stage 2 and a healthy A/D Score. <strong style="color:var(--a4)">A4</strong> fires when the stock has cleanly ridden the fast EMA for weeks and just hit a new local high — the quiet trend-ride continuation. All five also fire when <em>not</em> in position — late entrants can use any A/R signal as an initial entry. If one fires from flat, <code style="font-size:11px;background:#21262d;padding:1px 5px;border-radius:3px">inPosition</code> is set to true and the S-exit cycle activates.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 6. DASHBOARD -->
+  <section id="dashboard">
+    <div class="section-label">Section 6</div>
+    <div class="section-title">Dashboard Readings</div>
+    <div class="section-sub">The live table (top-right by default) updates on every bar. Each metric is explained below.</div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-key">A/D Score</div>
+        <div class="dash-val" style="color:var(--green)">0 – 100</div>
+        <div class="dash-desc">Composite accumulation/distribution score. Color-graded green → cyan → orange → red as flow deteriorates. The single most important number on the dashboard.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">Triggers</div>
+        <div class="dash-val" style="color:var(--blue)">X / 5</div>
+        <div class="dash-desc">How many of the 5 entry triggers are currently active. 5/5 = T1 eligible, 4/5 = T2, 3/5 = T3. Watch this climb as a setup develops.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">Warnings</div>
+        <div class="dash-val" style="color:var(--red)">X / 6</div>
+        <div class="dash-desc">Active exit warning count. Color escalates green → yellow → orange → red as warnings accumulate. Rising count = deteriorating position.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">RMV</div>
+        <div class="dash-val">Tight ↔ Wide</div>
+        <div class="dash-desc">Relative Measured Volatility — a normalized read of how compressed the recent range is. Low RMV = tight base (squeeze). Signals fired from a tight RMV get the <strong>[*]</strong> or <strong>[·]</strong> quality badge.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">MFI</div>
+        <div class="dash-val">Oscillator</div>
+        <div class="dash-desc">Money Flow Index (0–100). Component of the A/D Score. Watch for divergence from price.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">CMF</div>
+        <div class="dash-val">±1.000</div>
+        <div class="dash-desc">Chaikin Money Flow. Green = positive (buying pressure), red = negative (selling pressure). A fresh flip above zero contributes to the entry triggers.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">OBV</div>
+        <div class="dash-val">Discrete score</div>
+        <div class="dash-desc">On-Balance Volume momentum and divergence read. Higher = strong volume conviction (or smart-money accumulation against price). Negative = selling pressure / bearish divergence.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">U/D Vol</div>
+        <div class="dash-val">Ratio</div>
+        <div class="dash-desc">Up-volume vs down-volume ratio over a short window. &gt;1 = buyers dominating volume. Contributes to the A/D Score.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">RVOL</div>
+        <div class="dash-val">X.XXx</div>
+        <div class="dash-desc">Relative Volume — today's volume vs the rolling average. Green when above threshold. Required for T1 qualification, A1 breakout, and A2 pocket pivot signals.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">vs Bench</div>
+        <div class="dash-val">±%</div>
+        <div class="dash-desc">Stock performance minus SPY over the lookback. Green = outperforming, red = lagging. Drives the relative-strength trigger. Default benchmark: SPY.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">ADR%</div>
+        <div class="dash-val">X.XX%</div>
+        <div class="dash-desc">Average Daily Range %. Color-graded by activity level. If the ADR% filter is enabled and the stock isn't volatile enough, T/A signals are suppressed.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">Stage</div>
+        <div class="dash-val">1 – 4</div>
+        <div class="dash-desc">Weinstein stage based on price vs. the long-term SMA and SMA slope. Blue=Stage 2 (uptrend), gray=Stage 1 (base), yellow=Stage 3 (topping), red=Stage 4 (downtrend).</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">ATR Trail</div>
+        <div class="dash-val">Stop level</div>
+        <div class="dash-desc">Chandelier-style ATR trailing stop, plotted as a dotted line on chart when enabled. Pick a preset (Tight / Standard / Loose) or set custom values. Reference for position management, not a signal.</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-key">Signal Cell (top right)</div>
+        <div class="dash-val">T1+ / S2 / etc.</div>
+        <div class="dash-desc">Shows the most recently fired signal, including any <strong>[+]</strong> or <strong>[*]</strong>/<strong>[·]</strong> quality badge. Displays "—" when no signal is active.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 7. STAGES -->
+  <section id="stages">
+    <div class="section-label">Section 7</div>
+    <div class="section-title">Stage Analysis (Weinstein)</div>
+    <div class="section-sub">Based on the 150-bar SMA (≈30 weeks on daily). Stage is determined by two factors: whether price is above or below the SMA, and whether the SMA slope is rising or falling. Use "No entry signals in Stage 4" to automatically block all T and A entry signals in downtrends.</div>
+
+    <div class="stage-grid">
+      <div class="stage-card" style="background:#1a1f1a;border-color:#484f58">
+        <div class="stage-num" style="color:#8b949e">1</div>
+        <div class="stage-name" style="color:#8b949e">Basing / Accumulation</div>
+        <div class="stage-cond">Price below or near SMA. SMA slope rising or flat. Stock consolidating after a downtrend.</div>
+        <div class="stage-ftm" style="background:#21262d;color:#8b949e">T signals allowed. Watch for breakout.</div>
+      </div>
+      <div class="stage-card" style="background:#0d1f3a;border-color:#58a6ff">
+        <div class="stage-num" style="color:#58a6ff">2</div>
+        <div class="stage-name" style="color:#58a6ff">Uptrend / Mark-Up</div>
+        <div class="stage-cond">Price above rising SMA. Best stage to hold positions. A/D Score typically high. A2/A3 require Stage 2. A1 also fires here.</div>
+        <div class="stage-ftm" style="background:#1a2d3a;color:#58a6ff">All signals active. Prime hunting ground.</div>
+      </div>
+      <div class="stage-card" style="background:#2a2000;border-color:#d29922">
+        <div class="stage-num" style="color:#d29922">3</div>
+        <div class="stage-name" style="color:#d29922">Topping / Distribution</div>
+        <div class="stage-cond">Price still above SMA but SMA slope has turned flat or declining. Institutional selling begins. Often sees A/D Score divergence.</div>
+        <div class="stage-ftm" style="background:#2d2010;color:#d29922">Caution. Exit signals likely incoming.</div>
+      </div>
+      <div class="stage-card" style="background:#2d0d0d;border-color:#f85149">
+        <div class="stage-num" style="color:#f85149">4</div>
+        <div class="stage-name" style="color:#f85149">Downtrend / Mark-Down</div>
+        <div class="stage-cond">Price below declining SMA. Avoid long entries. Enable "No entry signals in Stage 4" to automatically suppress all T1/T2/T3 entry and A1/A2/A3 add signals.</div>
+        <div class="stage-ftm" style="background:#2d1515;color:#f85149">Block entries. Wait for Stage 1 base.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;color:var(--muted)">SMA Length Preset (v3.1.3+)</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Stage SMA length is now a dropdown preset — pick <strong style="color:var(--text)">Daily (150)</strong>, <strong style="color:var(--text)">Weekly (30)</strong>, <strong style="color:var(--text)">60-min (300)</strong>, or <strong style="color:var(--text)">Custom</strong> to match your timeframe. All three presets target ≈30 weeks of price history — the classic Weinstein lookback.</div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 8. SETTINGS -->
+  <section id="settings">
+    <div class="section-label">Section 8</div>
+    <div class="section-title">Settings Reference</div>
+    <div class="section-sub">All input groups with key parameters. Default values shown. Most users only need to adjust Signal Sensitivity and Add Signals groups.</div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">📐 Moving Averages &amp; Quality Badges</div><div class="settings-group-desc">EMA visibility and the RMV badge thresholds</div></div>
+      <div class="settings-row"><div class="settings-name">Show EMA 10</div><div class="settings-default">off</div><div class="settings-tip">Fast ribbon line. Useful for A3 pullback detection on chart.</div></div>
+      <div class="settings-row"><div class="settings-name">Show EMA 20 / 50</div><div class="settings-default">on</div><div class="settings-tip">Core trend lines. EMA20 gates S3; EMA50 gates S2/S1.</div></div>
+      <div class="settings-row"><div class="settings-name">Show EMA 200</div><div class="settings-default">off</div><div class="settings-tip">Long-term trend. Enable for longer-timeframe context.</div></div>
+      <div class="settings-row"><div class="settings-name">T signals: RMV ≤ N gets *</div><div class="settings-default">10</div><div class="settings-tip">When a T signal fires from a tight RMV reading at or below this value, the label gets a <strong>[*]</strong> badge — flagging an entry from a compressed base.</div></div>
+      <div class="settings-row"><div class="settings-name">A signals: RMV ≤ N gets ·</div><div class="settings-default">15</div><div class="settings-tip">Same idea for A signals — fired from tight RMV, the label carries a <strong>[·]</strong> badge.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">📊 A/D Score Inputs</div><div class="settings-group-desc">Lookback periods for flow indicators</div></div>
+      <div class="settings-row"><div class="settings-name">MFI Length</div><div class="settings-default">14</div><div class="settings-tip">Standard Money Flow Index lookback. Lower = more sensitive.</div></div>
+      <div class="settings-row"><div class="settings-name">CMF Length</div><div class="settings-default">20</div><div class="settings-tip">Chaikin Money Flow lookback. 20 is industry standard.</div></div>
+      <div class="settings-row"><div class="settings-name">U/D Volume Lookback</div><div class="settings-default">10</div><div class="settings-tip">Bars for up/down volume ratio. Lower = faster, more noisy.</div></div>
+      <div class="settings-row"><div class="settings-name">Perf Lookback</div><div class="settings-default">5</div><div class="settings-tip">Bars for vs-Bench and CMF crossover comparison.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">⚡ T1 Qualifier</div><div class="settings-group-desc">Volume gates for max-conviction entry</div></div>
+      <div class="settings-row"><div class="settings-name">RVOL Length</div><div class="settings-default">20</div><div class="settings-tip">Bars for average volume calculation in RVOL.</div></div>
+      <div class="settings-row"><div class="settings-name">RVOL Threshold</div><div class="settings-default">1.5</div><div class="settings-tip">Minimum RVOL for T1 volume qualifier. Also used in RVOL dashboard color.</div></div>
+      <div class="settings-row"><div class="settings-name">Pocket Pivot Lookback</div><div class="settings-default">15</div><div class="settings-tip">Bars back to find highest down-volume bar for pocket pivot comparison.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">📏 Momentum Filter (ADR%)</div><div class="settings-group-desc">Optional filter for volatile/momentum stocks</div></div>
+      <div class="settings-row"><div class="settings-name">Enable ADR% Filter</div><div class="settings-default">off</div><div class="settings-tip">When on, suppresses T/A signals if ADR% is below minimum. Good for screening out slow movers.</div></div>
+      <div class="settings-row"><div class="settings-name">Min ADR%</div><div class="settings-default">4.0%</div><div class="settings-tip">Typical momentum cutoff. 4–5% = active mover. &gt;7% = very volatile/speculative.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🗺 Stage Analysis</div><div class="settings-group-desc">Weinstein stage SMA preset</div></div>
+      <div class="settings-row"><div class="settings-name">Stage SMA Preset</div><div class="settings-default">Daily (150)</div><div class="settings-tip">Dropdown: <strong>Daily (150)</strong> / <strong>Weekly (30)</strong> / <strong>60-min (300)</strong> / <strong>Custom</strong>. Pick the option that matches your chart timeframe.</div></div>
+      <div class="settings-row"><div class="settings-name">Custom Length</div><div class="settings-default">150</div><div class="settings-tip">Only used when preset = Custom. Override for unusual timeframes (4H, monthly, etc.).</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🎛 Signal Sensitivity</div><div class="settings-group-desc">Noise reduction for entry signals</div></div>
+      <div class="settings-row"><div class="settings-name">T1: Score threshold</div><div class="settings-default">70</div><div class="settings-tip">Raise to 75–80 for fewer, higher-quality T1 signals. Lower for more frequent triggers.</div></div>
+      <div class="settings-row"><div class="settings-name">Confirm flag for N bars</div><div class="settings-default">1</div><div class="settings-tip">1 = instant. 2–3 = smoother, avoids single-bar spikes. Great noise reducer on volatile names.</div></div>
+      <div class="settings-row"><div class="settings-name">Cooldown between signals</div><div class="settings-default">0</div><div class="settings-tip">Min bars between same-type labels. 0 = off. Try 5–10 to prevent clustering on choppy charts.</div></div>
+      <div class="settings-row"><div class="settings-name">Lock: no new entry until S1</div><div class="settings-default">on</div><div class="settings-tip">After T fires, blocks further T signals until S1 full exit. Keeps chart clean. A1/A2/A3 bypass this lock.</div></div>
+      <div class="settings-row"><div class="settings-name">No entry signals in Stage 4</div><div class="settings-default">off</div><div class="settings-tip">When checked: blocks all T and A entry signals (T1/T2/T3 and A1/A2/A3) in downtrending Stage 4 stocks. Recommended for disciplined risk management.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">➕ Add / Continuation Signals (A1/A2/A3)</div><div class="settings-group-desc">Settings for breakout, pyramid and late-entry signals</div></div>
+      <div class="settings-row"><div class="settings-name">Enable A1/A2/A3 add signals</div><div class="settings-default">on</div><div class="settings-tip">Master toggle for all add signals. Disable on low-volatility or choppy stocks.</div></div>
+      <div class="settings-row"><div class="settings-name">A1: Breakout pivot lookback</div><div class="settings-default">20</div><div class="settings-tip">A1 fires when close breaks above the highest close of the last N bars. 20 = 4-week high. 30 = 6-week high (fewer, higher quality).</div></div>
+      <div class="settings-row"><div class="settings-name">A1: Min RVOL on breakout</div><div class="settings-default">1.5</div><div class="settings-tip">Confirms institutional participation on the breakout bar. Raise to 2.0+ for only the most powerful breakouts.</div></div>
+      <div class="settings-row"><div class="settings-name">A1: RMV short length</div><div class="settings-default">5</div><div class="settings-tip">Bars for the short-term average true range used in the RMV calculation.</div></div>
+      <div class="settings-row"><div class="settings-name">A1: RMV lookback</div><div class="settings-default">15</div><div class="settings-tip">Window over which RMV min/max are calculated. RMV = 0 at the tightest point, 100 at the widest.</div></div>
+      <div class="settings-row"><div class="settings-name">A1: Max RMV for squeeze</div><div class="settings-default">15</div><div class="settings-tip">RMV must be ≤ this value within the last 5 bars for A1 to fire. Lower = tighter squeeze required. Also used for the RMV★ label on tight bars.</div></div>
+      <div class="settings-row"><div class="settings-name">A2: Min RVOL (pocket pivot)</div><div class="settings-default">1.5</div><div class="settings-tip">A2 pocket pivot requires this RVOL floor. Filters weak pivots on low-down-volume trending days.</div></div>
+      <div class="settings-row"><div class="settings-name">A3: Pullback lookback (bars)</div><div class="settings-default">3</div><div class="settings-tip">How many bars back the EMA10/20 touch can be. 1 = very tight (same/next bar only). 5+ = looser.</div></div>
+      <div class="settings-row"><div class="settings-name">A3: Min RVOL on bounce</div><div class="settings-default">1.2</div><div class="settings-tip">Volume confirmation for the EMA reclaim bar. Lower = more frequent A3 signals.</div></div>
+      <div class="settings-row"><div class="settings-name">A2/A3: Min A/D Score</div><div class="settings-default">60</div><div class="settings-tip">A2 and A3 require this minimum score. A1 uses a 10pt lower threshold (default 50) since breakouts often begin before flow fully confirms.</div></div>
+      <div class="settings-row"><div class="settings-name">A2/A3: Require Stage 2</div><div class="settings-default">on</div><div class="settings-tip">A2/A3 only fire in Stage 2. A1 also allows Stage 1 — critical for catching Stage 1→2 breakout transitions.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🚀 R1 — Phase 3 Expansion</div><div class="settings-group-desc">ICT Power of 3 breakout signal settings</div></div>
+      <div class="settings-row"><div class="settings-name">Enable R1 signal</div><div class="settings-default">on</div><div class="settings-tip">Master toggle for the R1 Phase 3 expansion signal.</div></div>
+      <div class="settings-row"><div class="settings-name">R1: Min RVOL</div><div class="settings-default">2.0</div><div class="settings-tip">High volume confirmation required — 2× average is the minimum for a true Phase 3 blast-off. Raise to 2.5 for only the most explosive bars.</div></div>
+      <div class="settings-row"><div class="settings-name">R1: Pivot lookback (bars)</div><div class="settings-default">20</div><div class="settings-tip">R1 requires close to break the highest close of the last N bars. 20 = 4-week high break.</div></div>
+      <div class="settings-row"><div class="settings-name">R1: Prior base max RMV</div><div class="settings-default">25</div><div class="settings-tip">The prior base is confirmed when RMV was ≤ this value in the last 15 bars. Ensures R1 fires after genuine accumulation, not mid-trend chop.</div></div>
+      <div class="settings-row"><div class="settings-name">R1: Min A/D Score</div><div class="settings-default">40</div><div class="settings-tip">Intentionally loose (40) — Phase 3 breakouts often begin before flow fully confirms. Raise to 55+ if you want more flow confirmation.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🏄 A4 — Trend Ride</div><div class="settings-group-desc">Smooth uptrend continuation signal settings</div></div>
+      <div class="settings-row"><div class="settings-name">Enable A4 signal</div><div class="settings-default">on</div><div class="settings-tip">Master toggle for the A4 trend-ride signal.</div></div>
+      <div class="settings-row"><div class="settings-name">A4: Min bars above EMA20</div><div class="settings-default">15</div><div class="settings-tip">Consecutive bars the stock must stay above EMA20. 15 = 3 weeks on daily. Raise to 20+ for only the smoothest trends. Lower to 10 for more frequent signals.</div></div>
+      <div class="settings-row"><div class="settings-name">A4: New high lookback (bars)</div><div class="settings-default">10</div><div class="settings-tip">A4 requires close above the highest close of the last N bars. 10 = 2-week high.</div></div>
+      <div class="settings-row"><div class="settings-name">A4: Min RVOL</div><div class="settings-default">1.3</div><div class="settings-tip">Modest volume confirmation — trend rides don't require explosive volume, just above-average interest. Raise to 1.5 for stronger confirmation.</div></div>
+      <div class="settings-row"><div class="settings-name">A4: Min A/D Score</div><div class="settings-default">55</div><div class="settings-tip">Flow must still be positive. Below 55 signals weakening trend — raise to 60+ for stricter flow confirmation.</div></div>
+      <div class="settings-row"><div class="settings-name">A4: Cooldown (bars)</div><div class="settings-default">20</div><div class="settings-tip">Minimum bars between A4 signals. Prevents a cluster of A4s on the same trend run. 20 = 4 weeks between adds.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🏷️ VGB — Volatility Gaussian Bands (Quality Badge)</div><div class="settings-group-desc">Adds a <strong>[+]</strong> badge to T signals when volatility structure is flipping bullish</div></div>
+      <div class="settings-row"><div class="settings-name">Show + badge on T signals</div><div class="settings-default">on</div><div class="settings-tip">When a T signal fires within a couple bars of a VGB flip (basis turning up + upper band expanding), the label becomes T1+, T2+, or T3+. The badge is a quality indicator — it never blocks the underlying T signal.</div></div>
+      <div class="settings-row"><div class="settings-name">VGB Length (bars)</div><div class="settings-default">20</div><div class="settings-tip">Lookback for the Gaussian-weighted basis and standard deviation bands.</div></div>
+      <div class="settings-row"><div class="settings-name">VGB Sigma</div><div class="settings-default">6.0</div><div class="settings-tip">Gaussian kernel width. Higher = smoother basis. Lower = faster flip detection but more whipsaws.</div></div>
+      <div class="settings-row"><div class="settings-name">VGB Band Multiplier</div><div class="settings-default">2.0</div><div class="settings-tip">Standard deviations for upper/lower bands. Wider bands → rarer + badges.</div></div>
+      <div class="settings-row"><div class="settings-name">Show VGB Bands on chart</div><div class="settings-default">off</div><div class="settings-tip">Overlays the Gaussian basis and bands as subtle lines. Off by default to keep the chart clean.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🎯 ATR Trailing Stop <span style="font-size:10px;color:var(--yellow);margin-left:6px;">NEW v3.1.6</span></div><div class="settings-group-desc">Chandelier-style ATR trail with preset dropdown</div></div>
+      <div class="settings-row"><div class="settings-name">Show ATR Trailing Stop</div><div class="settings-default">off</div><div class="settings-tip">Plots a dotted trail line on the chart for reference. Visual only — it does not generate exit signals.</div></div>
+      <div class="settings-row"><div class="settings-name">ATR Trail Preset</div><div class="settings-default">Standard</div><div class="settings-tip">Dropdown: <strong>Tight</strong> (faster profit-taking) · <strong>Standard</strong> (Chuck LeBeau's original, default) · <strong>Loose</strong> (wider stop for longer-term holds) · <strong>Custom</strong>.</div></div>
+      <div class="settings-row"><div class="settings-name">Custom ATR Length / Mult / Lookback</div><div class="settings-default">14 / 3.0 / 22</div><div class="settings-tip">Only used when preset = Custom. Override for personal preference. Tooltip shows preset values in the indicator settings.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🌀 Power of 3 / Exit Filters</div><div class="settings-group-desc">PO3 shake-out detection and S-signal noise reduction</div></div>
+      <div class="settings-row"><div class="settings-name">S1 only fires in position</div><div class="settings-default">on</div><div class="settings-tip">When on, S1 is suppressed unless inPosition=true. Prevents false capitulation labels while watching from the sidelines.</div></div>
+      <div class="settings-row"><div class="settings-name">Exit confirm bars</div><div class="settings-default">1</div><div class="settings-tip">Bars an S signal must persist before printing. 1 = instant. Raise to 2 for fewer false exits on volatile names.</div></div>
+      <div class="settings-row"><div class="settings-name">Exit cooldown (bars)</div><div class="settings-default">10</div><div class="settings-tip">Minimum bars between S signals. Prevents clusters of S labels after a sharp drop. 10 = 2 weeks on daily.</div></div>
+      <div class="settings-row"><div class="settings-name">Enable shake-out filter</div><div class="settings-default">on</div><div class="settings-tip">ICT PO3 Phase 2 detection — suppresses S signals on bars that wick below a prior low but close back above it in the upper 50% of range. Prevents false exits on manipulation sweeps.</div></div>
+      <div class="settings-row"><div class="settings-name">Shake-out lookback (bars)</div><div class="settings-default">10</div><div class="settings-tip">How far back to look for the prior low that gets swept. 10 = 2-week low sweep detection.</div></div>
+      <div class="settings-row"><div class="settings-name">Enable consolidation-aware thresholds</div><div class="settings-default">on</div><div class="settings-tip">When in a tight consolidation (RMV &gt; 25 not seen in 10+ bars), S1 MA threshold tightens by 2% and S3 requires one extra warning — reducing false exits from base-building chop.</div></div>
+      <div class="settings-row"><div class="settings-name">Enable trend-strength S3 suppression</div><div class="settings-default">on</div><div class="settings-tip">Suppresses S3 when A/D Score ≥ 65 and vs-Bench &gt; 3% — a true institutional trend run. Prevents premature trims in the strongest setups.</div></div>
+      <div class="settings-row"><div class="settings-name">RMV gate for T entries</div><div class="settings-default">off</div><div class="settings-tip">When on, T1/T2/T3 entry signals require RMV ≤ max value — ensuring entries only happen from tight bases. Default off; turn on for base-breakout-only strategy.</div></div>
+      <div class="settings-row"><div class="settings-name">T entry max RMV</div><div class="settings-default">15</div><div class="settings-tip">Only active when RMV gate for T entries is on. Adjust to 20–25 for a looser squeeze filter.</div></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-header"><div class="settings-group-name">🚪 Exit Sensitivity</div><div class="settings-group-desc">Thresholds for S1/S2/S3 exit signals</div></div>
+      <div class="settings-row"><div class="settings-name">S1: % below EMA50</div><div class="settings-default">−5.0%</div><div class="settings-tip">More negative = deeper break required before S1. −3% = tighter stop, −8% = looser.</div></div>
+      <div class="settings-row"><div class="settings-name">S1: Score threshold</div><div class="settings-default">30</div><div class="settings-tip">A/D Score below this fires S1. Lower = less sensitive full-exit trigger.</div></div>
+      <div class="settings-row"><div class="settings-name">S1: min warnings</div><div class="settings-default">5 / 6</div><div class="settings-tip">Warnings needed for breadth-based S1. Higher = less sensitive.</div></div>
+      <div class="settings-row"><div class="settings-name">S2: min warnings</div><div class="settings-default">3 / 6</div><div class="settings-tip">Warnings needed for half-exit (alongside EMA50 break condition).</div></div>
+      <div class="settings-row"><div class="settings-name">S3: min warnings</div><div class="settings-default">3 / 6</div><div class="settings-tip">Warnings needed for trim signal (alongside EMA20 break condition). Consolidation-aware mode adds +1 when in a tight base. Default raised to 3 in v2.9.4 to reduce noise.</div></div>
+      <div class="settings-row"><div class="settings-name">S2 on EMA50 crossunder</div><div class="settings-default">on</div><div class="settings-tip">Fire S2 on the exact crossunder bar, regardless of warning count. Faster but noisier.</div></div>
+      <div class="settings-row"><div class="settings-name">S3 on EMA20 crossunder</div><div class="settings-default">off</div><div class="settings-tip">Fire S3 on the exact EMA20 crossunder bar. Off by default since v2.9.4 — crossunders trigger too frequently in choppy markets. Warnings-based S3 is more reliable.</div></div>
+    </div>
+  </section>
+
+  <hr class="section-div">
+
+  <!-- 9. TIPS -->
+  <section id="tips">
+    <div class="section-label">Section 9</div>
+    <div class="section-title">Tips & Common Scenarios</div>
+    <div class="section-sub">Real-world usage patterns and how to configure the indicator for different trading styles.</div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-q">🚂 "The stock ran 5× and I only got a T3 entry months ago"</div>
+        <div class="tip-a">This is the <strong>lockUntilExit</strong> feature working as designed — it keeps the chart clean but blocks re-entries on runners. Solution: watch for <strong>A1 breakouts</strong> out of tight consolidations, <strong>R1 Phase 3 expansion</strong> signals on high-volume blast-offs, <strong>A2 pocket pivots</strong> on big up-volume days, <strong>A3 signals</strong> on EMA10/20 bounces, and <strong>A4 trend-ride</strong> signals when the stock cleanly rides above EMA20. All five bypass the lock and give multiple add points during a trend run.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">📉 "Too many signals on choppy / low-float stocks"</div>
+        <div class="tip-a">Try these noise reducers in order: (1) Raise <strong>Confirm flag</strong> to 2–3 bars. (2) Set <strong>Cooldown</strong> to 5–10 bars. (3) Enable <strong>ADR% Filter</strong> with a 4–5% minimum. (4) Enable <strong>No entry signals in Stage 4</strong>. (5) For S signals specifically: enable the <strong>shake-out filter</strong> and <strong>consolidation-aware thresholds</strong> — these two settings alone eliminate the most common false exit patterns.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">⬇️ "I keep getting buy signals on stocks that are crashing"</div>
+        <div class="tip-a">Enable <strong>"No entry signals in Stage 4"</strong> in Signal Sensitivity. Stage 4 = price below a declining 150-bar SMA — true downtrend. This one checkbox eliminates the entire class of "buy the falling knife" setups. A1/A2/A3 add signals also respect this gate.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🔁 "A2 fires constantly — it's not rare"</div>
+        <div class="tip-a">On strongly trending stocks, down-volume bars are light so the pocket pivot threshold is easy to beat. Fix: raise <strong>A2: Min RVOL</strong> from 1.5 to 2.0–2.5. This ensures only genuinely institutional-sized days qualify. Also increase the <strong>Pocket Pivot Lookback</strong> from 15 to 20 bars for a harder benchmark. A1 (breakout) is the rarest — it also requires a fresh ATR squeeze and a pivot-high breakout.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">📅 "I trade weekly charts — does this work?"</div>
+        <div class="tip-a">Yes. Change <strong>Stage SMA Length</strong> from 150 to <strong>30</strong> (30 weekly bars = 30 weeks). Also consider raising MFI/CMF/U/D lookbacks slightly (e.g., 20→10 for CMF on weekly) since each bar represents 5 days. The Confirm and Cooldown settings are especially useful on weekly to avoid acting on single-bar spikes.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">💡 "What's the ideal setup for a momentum scanner?"</div>
+        <div class="tip-a">Enable <strong>ADR% Filter</strong> at 4.5–5%. This restricts signals to stocks moving at least 4.5% per day on average — your momentum universe. Pair with <strong>Require Stage 2</strong> on A signals and the Stage 4 block on T signals. Set Confirm to 1 and Cooldown to 3–5 for quick but filtered signals.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🎯 "How do I use T3 vs T2 vs T1 for sizing?"</div>
+        <div class="tip-a"><strong>T1</strong> (full triggers + volume confirmed) → full position size. <strong>T2</strong> (most triggers, no volume gate) → full position. <strong>T3</strong> (partial triggers) → half or starter position; add on an A3 pullback bounce if the thesis plays out. Think of T3 as a probe and T1/T2 as conviction entries. A <strong>[+]</strong> badge or <strong>[*]</strong> RMV tag is reason to lean into the size, not back off.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🔔 "How do I set up alerts?"</div>
+        <div class="tip-a">In TradingView, right-click the indicator → <strong>Add Alert</strong>. Eleven pre-built conditions are available: T1, T2, T3, A1 (breakout), R1 (Phase 3 expansion), A2 (pocket pivot), A3 (pullback), A4 (trend ride), S3, S2, S1. Set to "Once per bar close" for confirmed signals, or "Once per bar" for real-time. Alert messages include the ticker symbol and signal name.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🏷️ "What do the <strong>[+]</strong>, <strong>[*]</strong>, and <strong>[·]</strong> badges mean?"</div>
+        <div class="tip-a">They're <strong>quality badges</strong> on the labels — extra context for the same underlying signal. <strong>[+]</strong> on a T signal means the volatility structure (VGB) was flipping bullish at the moment of firing — a higher-conviction read. <strong>[*]</strong> on a T signal means it fired from a tight RMV zone (squeeze). <strong>[·]</strong> is the same idea for A signals. Badges never change <em>whether</em> a signal fires — they just tell you how clean the structural backdrop is.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🎯 "How should I use the ATR Trailing Stop?"</div>
+        <div class="tip-a">It's a visual reference — a Chandelier-style trail plotted as a dotted line on chart, color-coded by the version's preset. Pick <strong>Tight</strong> for faster profit-taking, <strong>Standard</strong> for the classic LeBeau settings (default), or <strong>Loose</strong> for longer-term holds. It does <em>not</em> generate exit signals — S1/S2/S3 still drive the exit cycle. Use the trail as a discretionary stop reference alongside the S signals.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-q">🌀 "What is the Power of 3 and how does the indicator use it?"</div>
+        <div class="tip-a">ICT's Power of 3 describes three market phases: <strong>Phase 1 Accumulation</strong> (institutions build a position quietly — low volatility, tight range). <strong>Phase 2 Manipulation</strong> (engineered stop sweep below prior lows — the shake-out). <strong>Phase 3 Expansion</strong> (the real move up begins). The indicator maps to this: RMV tight = Phase 1 (A1 breakout eligible). The <strong>shake-out filter</strong> detects Phase 2 wick sweeps and suppresses false S exits. <strong>R1</strong> is the Phase 3 signal — fires when RVOL ≥ 2× and price breaks out after a detected base.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:20px 0 0;border-top:1px solid var(--border);">
+    <div style="font-size:13px;font-weight:700;color:var(--muted)">FTM Indicator v3.1.6 &nbsp;·&nbsp; Flow / Trend / Momentum &nbsp;·&nbsp; by jackTD25</div>
+    <div style="font-size:11px;color:#484f58;margin-top:6px;">For educational purposes. Not financial advice. Always manage risk with defined stops.</div>
+    <div style="font-size:10px;color:#484f58;margin-top:10px;line-height:1.6;">
+      <strong style="color:var(--muted)">Recent changelog —</strong>
+      v3.1.6 ATR Trailing Stop preset dropdown ·
+      v3.1.5 ATR trail visual refresh (dotted) ·
+      v3.1.4 version shown in settings dialog ·
+      v3.1.3 Stage SMA preset dropdown + ATR trail line ·
+      v3.1.1 code-review fixes (A-signal masking, VGB early-bar bias, A4 false-block) ·
+      v3.1.0 T0 replaced with VGB <strong>[+]</strong> quality badge on T signals
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
