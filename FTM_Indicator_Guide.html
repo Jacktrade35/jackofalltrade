@@ -291,7 +291,7 @@
   <button class="tabbtn active" data-tab="ftm">FTM Plus</button>
   <button class="tabbtn" data-tab="mm">MarketMerge</button>
   <button class="tabbtn" data-tab="wf">Workflow</button>
-  <div class="ver">FTM v3.7.7 · MM v2.2</div>
+  <div class="ver">FTM v3.8.0 · MM v2.3</div>
 </nav>
 
 <div class="page">
@@ -306,7 +306,7 @@
       <p class="hero-sub">Flow · Trend · Momentum — combines four institutional flow indicators with trend and relative strength into a single <b>A/D Score</b>, firing color-coded entry, add, and exit labels on any ticker and timeframe.</p>
       <div class="hero-pills">
         <span class="hero-pill pill-t1">3 Entry signals (T1/T2/T3)</span>
-        <span class="hero-pill" style="color:var(--a1);border-color:var(--a1);background:var(--a1bg)">5 Add signals</span>
+        <span class="hero-pill" style="color:var(--r1);border-color:var(--r1);background:var(--r1bg)">3 Add signals (R1/A2/A3)</span>
         <span class="hero-pill pill-green">Profit-Taking Overlay</span>
         <span class="hero-pill pill-blue">MCDX Smart-Money</span>
         <span class="hero-pill pill-pink">S1/S2/S3 advisory</span>
@@ -319,7 +319,7 @@
     <section>
       <div class="section-label">Section 1</div>
       <div class="section-title">Signal Quick Reference</div>
-      <p class="section-sub">All 11 signals. Entry and add signals appear below the bar; exit signals above. Priority when multiple fire at once: <b>S1 → S2 → S3 → T1 → T2 → T3 → A1 → R1 → A2 → A3 → A4</b>.</p>
+      <p class="section-sub">All 9 signals. Entry and add signals appear below the bar; exit signals above. Priority when multiple fire at once: <b>S1 → S2 → S3 → T1 → T2 → T3 → R1 → A2 → A3</b>. <i>(A1 + A4 removed in v3.7.9 — A1 was dominated by R1, A4 had no validated edge.)</i></p>
 
       <div class="infobar" style="background:var(--t0bg);border:1px solid var(--t0)">
         <div class="ib-icon">🏷️</div>
@@ -344,13 +344,11 @@
         <div class="sig-card sig-t3"><div class="sig-badge">T3</div><div class="sig-name" style="color:var(--t3)">Starter Entry</div><div class="sig-desc">3 of 5 triggers, gated by RVOL <em>and</em> Stage 2 <em>and</em> a min ADR% (large-cap guard, v3.6.8). The tightest-filtered tier — only fires in confirmed uptrends with volume.</div><div class="sig-action" style="color:var(--t3)">→ Starter / probe</div></div>
       </div>
 
-      <div class="grouplabel" style="color:var(--a1)">➕ Add / Continuation Signals (below bar) — bypass entry lock</div>
+      <div class="grouplabel" style="color:var(--r1)">➕ Add / Continuation Signals (below bar) — bypass entry lock</div>
       <div class="grid grid-3" style="margin-bottom:20px">
-        <div class="sig-card sig-a1"><div class="sig-badge">A1</div><div class="sig-name" style="color:var(--a1)">Breakout from Squeeze</div><div class="sig-desc">Close breaks above a pivot high after a tight volatility squeeze, confirmed by elevated RVOL. Stage 1 or 2 — catches the tight-base breakout early.</div><div class="sig-action" style="color:var(--a1)">→ Catch the move (rarest)</div></div>
         <div class="sig-card sig-r1"><div class="sig-badge">R1</div><div class="sig-name" style="color:var(--r1)">Phase 3 Expansion</div><div class="sig-desc">ICT Power of 3 breakout — a prior tight base resolves with a high-volume breakout closing in the upper part of the range. Stage 1 or 2. Strong-conviction blast-off.</div><div class="sig-action" style="color:var(--r1)">→ Aggressive add / entry</div></div>
         <div class="sig-card sig-a2"><div class="sig-badge">A2</div><div class="sig-name" style="color:var(--a2)">Pocket Pivot Continuation</div><div class="sig-desc">Today's up-volume overwhelms the strongest recent down-volume bar, with elevated RVOL. Requires Stage 2 and a healthy A/D Score.</div><div class="sig-action" style="color:var(--a2)">→ Add on strength</div></div>
         <div class="sig-card sig-a3"><div class="sig-badge">A3</div><div class="sig-name" style="color:var(--a3)">Pullback Bounce</div><div class="sig-desc">Price tagged a key EMA, then reclaimed it on a green bar with volume confirmation. Requires Stage 2 and a healthy A/D Score.</div><div class="sig-action" style="color:var(--a3)">→ Add on reset</div></div>
-        <div class="sig-card sig-a4"><div class="sig-badge">A4</div><div class="sig-name" style="color:var(--a4)">Trend Ride</div><div class="sig-desc">Stock held cleanly above the fast EMA for weeks and just printed a new local high on above-average volume. Cooldown prevents clustering.</div><div class="sig-action" style="color:var(--a4)">→ Add to smooth uptrend</div></div>
       </div>
 
       <div class="grouplabel" style="color:var(--s1)">📉 Exit Signals (above bar) — advisory when Profit-Taking is on</div>
@@ -435,7 +433,7 @@
     <section>
       <div class="section-label">Section 5</div>
       <div class="section-title">Trade Cycle Flow</div>
-      <p class="section-sub">How the signals interact across a trade. With the <strong style="color:var(--green)">Profit-Taking Overlay</strong> on (default), the exit is a two-step scale-out plus a trailing stop (the <strong style="color:var(--green)">Scale-out</strong> path below); high-volatility names take the <strong style="color:var(--orange)">Trail-only</strong> branch instead. S1/S2/S3 still print as advisory heads-ups in parallel. A1/A2/A3/R1/A4 bypass the entry lock and can fire any time the stage is active.</p>
+      <p class="section-sub">How the signals interact across a trade. With the <strong style="color:var(--green)">Profit-Taking Overlay</strong> on (default), the exit is a two-step scale-out plus a trailing stop (the <strong style="color:var(--green)">Scale-out</strong> path below); high-volatility names take the <strong style="color:var(--orange)">Trail-only</strong> branch instead. S1/S2/S3 still print as advisory heads-ups in parallel. R1/A2/A3 bypass the entry lock and can fire any time the stage is active.</p>
       <div class="cycle-flow">
         <div class="cycle-step" style="background:#0d1117"><div class="cycle-icon">⏳</div><div class="cycle-badge" style="background:#21262d;color:var(--muted)">FLAT / WATCH</div><div class="cycle-title">No Position</div><div class="cycle-sub">Entry lock off; all T signals eligible. A coiling base shows <strong style="color:var(--aqua)">WATCH</strong> + a buy-stop line.</div></div>
         <div class="cycle-step" style="background:var(--t3bg)"><div class="cycle-icon">📈</div><div class="cycle-badge" style="background:var(--t3);color:#0a1520">T3 / T2 / T1</div><div class="cycle-title">Entry Signal</div><div class="cycle-sub">Position opens. Lock activates — no new T signals until it fully exits.</div></div>
@@ -449,7 +447,7 @@
       </div>
       <div class="add-branch">
         <div class="add-branch-icon">➕</div>
-        <div class="add-branch-text"><h4 style="color:var(--a1)">A1 / R1 / A2 / A3 / A4 — run in parallel, bypass the lock</h4><p>While locked, all five add signals still fire freely. <strong style="color:var(--a1)">A1</strong> — squeeze breakout (Stage 1/2). <strong style="color:var(--r1)">R1</strong> — ICT Phase 3 blast-off. <strong style="color:var(--a2)">A2</strong> pocket pivots &amp; <strong style="color:var(--a3)">A3</strong> pullback bounces require Stage 2 + a healthy A/D Score. <strong style="color:var(--a4)">A4</strong> — quiet trend-ride continuation. All five also fire when <em>not</em> in position, so a late entrant can use any A/R signal as an initial entry — which then activates the S-exit cycle.</p></div>
+        <div class="add-branch-text"><h4 style="color:var(--r1)">R1 / A2 / A3 — run in parallel, bypass the lock</h4><p>While locked, all three add signals still fire freely. <strong style="color:var(--r1)">R1</strong> — ICT Phase 3 blast-off (the one breakout add). <strong style="color:var(--a2)">A2</strong> pocket pivots &amp; <strong style="color:var(--a3)">A3</strong> pullback bounces require Stage 2 + a healthy A/D Score. All three also fire when <em>not</em> in position, so a late entrant can use any add signal as an initial entry — which then activates the S-exit cycle. <em>(A1 + A4 removed v3.7.9 — see the validation note in the signals section.)</em></p></div>
       </div>
     </section>
 
@@ -497,7 +495,7 @@
         <div class="dash-card"><div class="dash-key">Warnings</div><div class="dash-val" style="color:var(--red)">X / 6</div><div class="dash-desc">Active exit-warning count. Escalates green → yellow → orange → red. Rising = deteriorating position.</div></div>
         <div class="dash-card"><div class="dash-key">RMV</div><div class="dash-val">Tight ↔ Wide</div><div class="dash-desc">Relative Measured Volatility. Low = tight base (squeeze). Signals from a tight RMV get the <strong>[*]</strong>/<strong>[·]</strong> badge.</div></div>
         <div class="dash-card"><div class="dash-key">MFI / CMF / OBV / U-D Vol</div><div class="dash-val">flow components</div><div class="dash-desc">The four A/D inputs. CMF green when positive; OBV a discrete divergence read; U/D &gt;1 = buyers dominating. Hidden by default.</div></div>
-        <div class="dash-card"><div class="dash-key">RVOL</div><div class="dash-val">X.XXx</div><div class="dash-desc">Relative Volume vs the rolling average. Required for T1, A1 and A2 qualification.</div></div>
+        <div class="dash-card"><div class="dash-key">RVOL</div><div class="dash-val">X.XXx</div><div class="dash-desc">Relative Volume vs the rolling average. Required for T1, A2 and R1 qualification.</div></div>
         <div class="dash-card"><div class="dash-key">vs Bench</div><div class="dash-val">±%</div><div class="dash-desc">Stock performance minus SPY over the lookback. Drives the relative-strength trigger. Default benchmark: SPY.</div></div>
         <div class="dash-card"><div class="dash-key">ADR%</div><div class="dash-val">X.XX%</div><div class="dash-desc">Average Daily Range %. If the ADR% filter is on and the stock isn't volatile enough, T/A signals are suppressed.</div></div>
         <div class="dash-card"><div class="dash-key">EMA50 Ext</div><div class="dash-val" style="color:var(--orange)">X.Xx</div><div class="dash-desc">ATRs above EMA50 — a "how extended" gauge. lime → yellow (3+) → orange (5+) → red (7+ = <strong>trim-into-strength</strong> cue, not a sell).</div></div>
@@ -514,7 +512,7 @@
       <p class="section-sub">Based on the 150-bar SMA (≈30 weeks on daily). Determined by price vs the SMA and the SMA slope. Enable "No entry signals in Stage 4" to auto-block all T/A entries in downtrends.</p>
       <div class="stage-grid">
         <div class="stage-card" style="background:#1a1f1a;border-color:#484f58"><div class="stage-num" style="color:#8b949e">1</div><div class="stage-name" style="color:#8b949e">Basing / Accumulation</div><div class="stage-cond">Price below or near SMA. Slope rising or flat. Consolidating after a downtrend.</div><div class="stage-ftm" style="background:#21262d;color:#8b949e">T signals allowed. Watch for breakout.</div></div>
-        <div class="stage-card" style="background:#0d1f3a;border-color:var(--blue)"><div class="stage-num" style="color:var(--blue)">2</div><div class="stage-name" style="color:var(--blue)">Uptrend / Mark-Up</div><div class="stage-cond">Price above rising SMA. Best stage to hold. A2/A3 require Stage 2; A1 fires here too.</div><div class="stage-ftm" style="background:#1a2d3a;color:var(--blue)">All signals active. Prime hunting ground.</div></div>
+        <div class="stage-card" style="background:#0d1f3a;border-color:var(--blue)"><div class="stage-num" style="color:var(--blue)">2</div><div class="stage-name" style="color:var(--blue)">Uptrend / Mark-Up</div><div class="stage-cond">Price above rising SMA. Best stage to hold. A2/A3 require Stage 2; R1 fires here too.</div><div class="stage-ftm" style="background:#1a2d3a;color:var(--blue)">All signals active. Prime hunting ground.</div></div>
         <div class="stage-card" style="background:#2a2000;border-color:var(--yellow)"><div class="stage-num" style="color:var(--yellow)">3</div><div class="stage-name" style="color:var(--yellow)">Topping / Distribution</div><div class="stage-cond">Price still above SMA but slope flat/declining. Institutional selling begins. Often A/D divergence.</div><div class="stage-ftm" style="background:#2d2010;color:var(--yellow)">Caution. Exit signals likely incoming.</div></div>
         <div class="stage-card" style="background:#2d0d0d;border-color:var(--red)"><div class="stage-num" style="color:var(--red)">4</div><div class="stage-name" style="color:var(--red)">Downtrend / Mark-Down</div><div class="stage-cond">Price below declining SMA. Avoid longs. "No entry signals in Stage 4" suppresses all T/A entries.</div><div class="stage-ftm" style="background:#2d1515;color:var(--red)">Block entries. Wait for Stage 1 base.</div></div>
       </div>
@@ -533,9 +531,9 @@
         <div class="dash-card"><div class="dash-key">📏 Momentum Filter (ADR%)</div><div class="dash-desc">Optional — suppress signals on names that aren't moving enough.</div></div>
         <div class="dash-card"><div class="dash-key">🗺 Stage Analysis</div><div class="dash-desc">The Weinstein stage SMA preset (Daily / Weekly / intraday / Custom).</div></div>
         <div class="dash-card"><div class="dash-key">🎛 Signal Sensitivity</div><div class="dash-desc">Score gate, confirm/cooldown, entry lock, Stage-4 block. Your main dials.</div></div>
-        <div class="dash-card"><div class="dash-key">➕ Add Signals (A1/A2/A3)</div><div class="dash-desc">Breakout, pocket-pivot and pullback add-signal sensitivity.</div></div>
+        <div class="dash-card"><div class="dash-key">➕ Add Signals (R1/A2/A3)</div><div class="dash-desc">Phase-3 breakout, pocket-pivot and pullback add-signal sensitivity.</div></div>
         <div class="dash-card"><div class="dash-key">🚀 R1 — Phase 3 Expansion</div><div class="dash-desc">The high-volume base-breakout signal and how strict it is.</div></div>
-        <div class="dash-card"><div class="dash-key">🏄 A4 — Trend Ride</div><div class="dash-desc">The smooth-uptrend continuation add and its cooldown.</div></div>
+        <div class="dash-card"><div class="dash-key">📅 Earnings Guard</div><div class="dash-desc">Opt-in (default OFF): suppress T/A entries within N days of the next report (v3.8.0, live-bar only). The ER countdown itself lives on the MarketMerge panel.</div></div>
         <div class="dash-card"><div class="dash-key">🏷 VGB Quality Badge</div><div class="dash-desc">The volatility-structure read that adds <strong>[+]</strong> to <strong>T1</strong> (T1-only since v3.7.7).</div></div>
         <div class="dash-card" style="border-color:var(--aqua)"><div class="dash-key" style="color:var(--aqua)">👀 Setup / Watch (pre-breakout)</div><div class="dash-desc">Arms WATCH + buy-stop on a coiling base: pivot lookback, base tightness, min A/D Score.</div></div>
         <div class="dash-card" style="border-color:var(--green)"><div class="dash-key" style="color:var(--green)">✂️ Profit-Taking Overlay</div><div class="dash-desc">Exit-mode dropdown, scale-out targets, trail multiples, and hard floor.</div></div>
@@ -551,19 +549,19 @@
       <p class="section-sub">Real-world usage patterns and how to configure for different styles.</p>
       <div class="tips-grid">
         <div class="tip-card"><div class="tip-q">✂️ "Price is way extended above EMA50 — should I sell?"</div><div class="tip-a"><strong>Trim into strength — don't dump.</strong> When <strong>EMA50 Ext</strong> turns red (≥ 7 ATR, reads e.g. <code>7.2x trim</code>), take partial profits and tighten the stop — but don't full-exit just because it looks stretched. In strong momentum, extension <em>persists</em>: in testing the most-extended state had the <strong>highest</strong> forward returns. Reserve full exits for the trail stop or an S3→S2→S1 rollover. The overlay automates this.</div></div>
-        <div class="tip-card"><div class="tip-q">🚂 "The stock ran 5× and I only got a T3 entry months ago"</div><div class="tip-a">That's <strong>lockUntilExit</strong> working as designed — clean chart, but no re-entries on runners. Solution: watch for <strong>A1</strong> breakouts, <strong>R1</strong> Phase 3 blast-offs, <strong>A2</strong> pocket pivots, <strong>A3</strong> EMA bounces, and <strong>A4</strong> trend-rides. All five bypass the lock and give multiple add points.</div></div>
+        <div class="tip-card"><div class="tip-q">🚂 "The stock ran 5× and I only got a T3 entry months ago"</div><div class="tip-a">That's <strong>lockUntilExit</strong> working as designed — clean chart, but no re-entries on runners. Solution: watch for <strong>R1</strong> Phase 3 blast-offs, <strong>A2</strong> pocket pivots, and <strong>A3</strong> EMA bounces. All three bypass the lock and give multiple add points.</div></div>
         <div class="tip-card"><div class="tip-q">📉 "Too many signals on choppy / low-float stocks"</div><div class="tip-a">Noise reducers in order: (1) Raise <strong>Confirm flag</strong> to 2–3 bars. (2) Set <strong>Cooldown</strong> 5–10 bars. (3) Enable <strong>ADR% Filter</strong> at 4–5% min. (4) Enable <strong>No entry signals in Stage 4</strong>. (5) For S signals: enable the <strong>shake-out filter</strong> and <strong>consolidation-aware thresholds</strong>.</div></div>
-        <div class="tip-card"><div class="tip-q">⬇️ "I keep getting buy signals on stocks that are crashing"</div><div class="tip-a">Enable <strong>"No entry signals in Stage 4"</strong>. Stage 4 = price below a declining 150-bar SMA — true downtrend. This one checkbox eliminates the "buy the falling knife" class. A1/A2/A3 respect it too.</div></div>
+        <div class="tip-card"><div class="tip-q">⬇️ "I keep getting buy signals on stocks that are crashing"</div><div class="tip-a">Enable <strong>"No entry signals in Stage 4"</strong>. Stage 4 = price below a declining 150-bar SMA — true downtrend. This one checkbox eliminates the "buy the falling knife" class. R1/A2/A3 respect it too.</div></div>
         <div class="tip-card"><div class="tip-q">📅 "I trade weekly charts — does this work?"</div><div class="tip-a">Yes. Change <strong>Stage SMA Length</strong> from 150 to <strong>30</strong> (30 weekly bars ≈ 30 weeks). Consider raising MFI/CMF/U-D lookbacks slightly. Confirm and Cooldown are especially useful on weekly to avoid single-bar spikes.</div></div>
         <div class="tip-card"><div class="tip-q">🎯 "How do I use T3 vs T2 vs T1 for sizing?"</div><div class="tip-a"><strong>T1</strong> (5 triggers + volume) → full. <strong>T2</strong> (4 + volume + Stage 2) → full/near-full. <strong>T3</strong> (3 + volume + Stage 2 + ADR guard) → starter; add on an A3 bounce if the thesis plays out. A <strong>[+]</strong> or <strong>[*]</strong> tag is reason to lean into size, not back off.</div></div>
-        <div class="tip-card"><div class="tip-q">🔔 "How do I set up alerts?"</div><div class="tip-a">Right-click the indicator → <strong>Add Alert</strong>, pick a condition. Pre-breakout: <strong style="color:var(--aqua)">FTM SETUP</strong> (buy-stop price). Entries/adds: T1, <strong>T1+</strong>, T2, T3, A1, R1, A2, A3, A4. Exits (advisory): S3, S2, S1. Profit-taking: <strong>PT1</strong>, <strong>PT2</strong>, <strong>PT Exit</strong> (only fire when the overlay is on). Use "Once per bar close" for confirmed signals.</div></div>
+        <div class="tip-card"><div class="tip-q">🔔 "How do I set up alerts?"</div><div class="tip-a">Right-click the indicator → <strong>Add Alert</strong>, pick a condition. Pre-breakout: <strong style="color:var(--aqua)">FTM SETUP</strong> (buy-stop price). Entries/adds: T1, <strong>T1+</strong>, T2, T3, R1, A2, A3. Exits (advisory): S3, S2, S1. Profit-taking: <strong>PT1</strong>, <strong>PT2</strong>, <strong>PT Exit</strong> (only fire when the overlay is on). Use "Once per bar close" for confirmed signals.</div></div>
         <div class="tip-card"><div class="tip-q">🎯 "Why does this name show no PT1 / PT2 lines — only a trail?"</div><div class="tip-a">Because <strong>PT exit mode</strong> is on <strong>Auto (by ADR%)</strong> (default) and this is a <strong>high-volatility name</strong> (ADR% ≥ 5) → <strong>Trail-only</strong>, which rides the whole position and hides the scale-out targets. Calm names show the full PT1 + PT2 + trail. Want targets everywhere? Set <strong>PT exit mode → Scale-out</strong>. <span style="color:#6b7280">(The standalone ATR Trailing Stop line was removed in v3.5.7 — the PT Trail is now the only stop line.)</span></div></div>
       </div>
     </section>
 
     <div class="footer" style="border:none;padding-top:8px">
-      <div style="font-size:13px;font-weight:700;color:var(--muted)">FTM Plus v3.7.7 · Flow / Trend / Momentum · by jackTD25</div>
-      <div style="font-size:10px;color:#484f58;margin-top:10px;line-height:1.6"><strong style="color:var(--muted)">Recent changelog —</strong> v3.7.7 [+] badge now T1-only &amp; ES early-setup entry removed (WATCH kept) · v3.7.3 pre-breakout Setup/WATCH + buy-stop line + coiling-base screener · v3.7.0 universe-aware exit (Auto by ADR%) · v3.6.9 Trail-only PT mode · v3.6.8 T3 large-cap guard · v3.4.6 Profit-Taking Overlay · v3.4.5 entry ladder re-gated (RVOL + Stage 2) · v3.4 MCDX smart-money strip · v3.1.0 VGB [+] badge</div>
+      <div style="font-size:13px;font-weight:700;color:var(--muted)">FTM Plus v3.8.0 · Flow / Trend / Momentum · by jackTD25</div>
+      <div style="font-size:10px;color:#484f58;margin-top:10px;line-height:1.6"><strong style="color:var(--muted)">Recent changelog —</strong> v3.8.0 opt-in earnings guard (display on MarketMerge) · v3.7.9 A1 + A4 removed (A1 dominated by R1, A4 no edge) · v3.7.8 buy-stop line render fix · v3.7.7 [+] badge now T1-only &amp; ES early-setup entry removed (WATCH kept) · v3.7.3 pre-breakout Setup/WATCH + buy-stop line + coiling-base screener · v3.7.0 universe-aware exit (Auto by ADR%) · v3.6.9 Trail-only PT mode · v3.6.8 T3 large-cap guard · v3.4.6 Profit-Taking Overlay · v3.4.5 entry ladder re-gated (RVOL + Stage 2) · v3.4 MCDX smart-money strip · v3.1.0 VGB [+] badge</div>
     </div>
 
   </div>
@@ -779,7 +777,7 @@
         </div>
         <div class="state-card" style="border-color:var(--t1); background:var(--t1bg)">
           <span class="state-badge" style="background:var(--t1); color:#0a0c22">FTM PLUS</span>
-          <div class="state-desc" style="color:#c3c9ff; font-size:12.5px"><b style="color:var(--t1)">“When do I enter, and when do I exit?”</b><br><br>Money-flow A/D score, pre-breakout WATCH, T1/T2/T3 entries, A1–A4/R1 adds, and a Profit-Taking Overlay (scale-out + ATR trail) that owns the exit — S1/S2/S3 print as advisory. Executes the trade on names MarketMerge already blessed.</div>
+          <div class="state-desc" style="color:#c3c9ff; font-size:12.5px"><b style="color:var(--t1)">“When do I enter, and when do I exit?”</b><br><br>Money-flow A/D score, pre-breakout WATCH, T1/T2/T3 entries, R1/A2/A3 adds, and a Profit-Taking Overlay (scale-out + ATR trail) that owns the exit — S1/S2/S3 print as advisory. Executes the trade on names MarketMerge already blessed.</div>
         </div>
       </div>
     </section>
@@ -789,7 +787,7 @@
       <div class="section-title">Selection → Timing → Management</div>
       <div class="step-list">
         <div class="step"><div class="step-num num-lime">1</div><div><b>Screen with MarketMerge.</b> Only <b>6–7/7</b> names with M in UPTREND and MM Trend = PASS reach the active buy list.</div></div>
-        <div class="step"><div class="step-num num-cyan">2</div><div><b>Enter with FTM.</b> Rest a buy-stop at the pivot when FTM shows <span style="color:var(--aqua);font-weight:700">WATCH</span> on a coiling base, or take the <b>T1 / T2</b> breakout. A <b>T1+</b> badge or a tight-RMV <b>[*]</b> tag is a size-up cue. RS line <span style="color:var(--blue);font-weight:700">● NEW HI</span> on entry day is the highest-conviction confirmation. Already in a runner? Add on <b>A1/R1/A2/A3/A4</b> — they bypass the entry lock.</div></div>
+        <div class="step"><div class="step-num num-cyan">2</div><div><b>Enter with FTM.</b> Rest a buy-stop at the pivot when FTM shows <span style="color:var(--aqua);font-weight:700">WATCH</span> on a coiling base, or take the <b>T1 / T2</b> breakout. A <b>T1+</b> badge or a tight-RMV <b>[*]</b> tag is a size-up cue. RS line <span style="color:var(--blue);font-weight:700">● NEW HI</span> on entry day is the highest-conviction confirmation. Already in a runner? Add on <b>R1/A2/A3</b> — they bypass the entry lock.</div></div>
         <div class="step"><div class="step-num num-lime">3</div><div><b>Let FTM's Profit-Taking Overlay run the exit</b> (PT1 banks ⅓ at +4 ATR, PT2 ⅓ at +8 ATR, trail the rest) and <b>overlay the earnings-power read</b> from the matrix below. This is where “hold longer vs sell into strength” gets decided.</div></div>
         <div class="step"><div class="step-num num-blue">4</div><div><b>Pre-earnings check</b> on every holding: EPS Accel state, surprise history, and the FTM <b>EMA50 Ext</b> gauge. Extended (red "trim") + decelerating into the report = take some off beforehand.</div></div>
       </div>
@@ -847,7 +845,7 @@
   </div>
 
   <footer class="footer">
-    FTM Plus v3.7.7 (Flow · Trend · Momentum, Pine v5) &nbsp;+&nbsp; MarketMerge v2.2 (CANSLIM Data Panel, Pine v6)<br>
+    FTM Plus v3.8.0 (Flow · Trend · Momentum, Pine v5) &nbsp;+&nbsp; MarketMerge v2.3 (CANSLIM Data Panel, Pine v6)<br>
     MarketMerge selects · FTM times. Ratings are approximations — verify fundamentals at the source before sizing up.
   </footer>
 
