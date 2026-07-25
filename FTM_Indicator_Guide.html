@@ -74,6 +74,17 @@
   .tabbtn.active[data-tab="mm"]  { color: var(--lime); border-bottom-color: var(--lime); }
   .tabbtn.active[data-tab="wf"]  { color: var(--blue); border-bottom-color: var(--blue); }
   .ver { margin-left: auto; font-size: 11px; color: var(--muted); background: #21262d; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; white-space: nowrap; }
+  /* Mobile: the nav row (brand + tabs + version badge) was forcing the whole page to
+     ~714px and giving every tab a horizontal scroll. Tighten it and drop the badge. */
+  @media (max-width: 700px) {
+    /* let the nav scroll inside itself instead of stretching the page */
+    .topbar { padding: 0 14px; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .topbar::-webkit-scrollbar { display: none; }
+    .topbar > * { flex: 0 0 auto; }
+    .brand { font-size: 13px; padding: 12px 12px 12px 0; margin-right: 6px; }
+    .ver { display: none; }
+    .tabbtn { padding-left: 10px; padding-right: 10px; font-size: 12.5px; }
+  }
 
   /* ── LAYOUT ── */
   .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px 90px; display: flex; flex-direction: column; gap: 46px; }
@@ -212,6 +223,44 @@
   .mcdx-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--dim); margin-top: 6px; }
   .mcdx-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; font-size: 11px; color: var(--muted); align-items: center; }
   .mcdx-legend b { display: inline-block; width: 15px; height: 11px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
+  /* TechnoFunda — the "what to buy vs when to buy" explainer */
+  .tf-venn { display: grid; grid-template-columns: 1fr 132px 1fr; align-items: stretch; margin: 4px 0 0; }
+  .tf-side { border: 1px solid; border-radius: 14px; padding: 18px 20px 16px; }
+  .tf-fund { border-color: var(--lime); background: linear-gradient(160deg, rgba(154,205,50,0.10), rgba(154,205,50,0.02)); }
+  .tf-tech { border-color: var(--t1); background: linear-gradient(200deg, rgba(124,134,255,0.12), rgba(124,134,255,0.02)); }
+  .tf-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 3px; }
+  .tf-q { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 2px; }
+  .tf-who { font-size: 11.5px; color: var(--muted); margin-bottom: 12px; }
+  .tf-list { list-style: none; padding: 0; margin: 0; }
+  .tf-list li { font-size: 12px; color: #cdd6e0; padding: 5px 0 5px 15px; position: relative; border-top: 1px solid var(--border); }
+  .tf-list li:first-child { border-top: none; }
+  .tf-list li::before { content: "▸"; position: absolute; left: 0; opacity: 0.75; }
+  .tf-list b { color: var(--text); }
+  .tf-core { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 6px; }
+  .tf-core .ring { width: 104px; height: 104px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 40%, rgba(124,134,255,0.30), rgba(154,205,50,0.16) 70%, transparent);
+    border: 1px solid #6f7ba8; box-shadow: 0 0 26px rgba(124,134,255,0.22); }
+  .tf-core .ring b { font-size: 12.5px; font-weight: 800; letter-spacing: 0.3px; color: #fff; line-height: 1.15; }
+  .tf-core .ring span { font-size: 9px; color: var(--muted); letter-spacing: 1px; margin-top: 3px; }
+  .tf-arrow { font-size: 15px; color: var(--dim); margin: 7px 0 0; letter-spacing: 2px; }
+  .tf-maxim { margin-top: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--card2);
+    padding: 15px 18px; text-align: center; font-size: 15.5px; font-weight: 700; line-height: 1.55; }
+  .tf-maxim .w { color: var(--lime); } .tf-maxim .n { color: var(--t1); }
+  .tf-maxim small { display: block; font-size: 11.5px; font-weight: 400; color: var(--muted); margin-top: 6px; }
+  .tf-traps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .tf-trap { border: 1px solid var(--border); border-left-width: 3px; border-radius: 10px; background: var(--card); padding: 14px 16px; }
+  .tf-trap.a { border-left-color: var(--t1); } .tf-trap.b { border-left-color: var(--lime); }
+  .tf-trap h5 { margin: 0 0 6px; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2px; }
+  .tf-trap p { margin: 0 0 7px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .tf-trap .fix { font-size: 12px; color: #cdd6e0; line-height: 1.6; }
+  .tf-lineage { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; font-size: 11.5px; color: var(--muted); align-items: center; }
+  .tf-lineage span.chip { border: 1px solid var(--border); border-radius: 20px; padding: 3px 11px; background: var(--card); }
+  @media (max-width: 820px) {
+    .tf-venn { grid-template-columns: 1fr; gap: 10px; }
+    .tf-core { padding: 4px 0; } .tf-core .ring { width: 92px; height: 92px; }
+    .tf-arrow { transform: rotate(90deg); margin: 2px 0; }
+    .tf-traps { grid-template-columns: 1fr; }
+  }
   h4.block { font-size: 14px; font-weight: 700; color: var(--lblue); margin: 22px 0 10px; }
   h4.block:first-of-type { margin-top: 0; }
   h4.block.c { color: #b9c4ff; }
@@ -830,6 +879,67 @@
         <span class="hero-pill pill-green">Management</span>
       </div>
     </header>
+
+    <section>
+      <div class="section-label">Why It Works</div>
+      <div class="section-title">TechnoFunda — the hybrid this stack is built on</div>
+      <p class="section-sub">Neither discipline is complete on its own. Fundamental analysis finds companies worth owning but is famously bad at timing; technical analysis times entries precisely but cannot tell a real business from a story stock. <b style="color:var(--text)">TechnoFunda</b> runs both as filters in series — and that is exactly the division of labour between these two indicators.</p>
+
+      <div class="tf-venn">
+        <div class="tf-side tf-fund">
+          <div class="tf-eyebrow" style="color:var(--lime)">1 · The fundamental side — MarketMerge</div>
+          <div class="tf-q" style="color:var(--lime)">WHAT to buy</div>
+          <div class="tf-who">Filtering for hyper-growth. Builds the buy list, sets conviction.</div>
+          <ul class="tf-list">
+            <li><b>Earnings &amp; sales growth</b> — quarterly acceleration (C, A, EPS Accel)</li>
+            <li><b>Institutional sponsorship</b> — Acc/Dis, U/D volume, RS leadership (I, L)</li>
+            <li><b>Profit quality</b> — margins, ROE, SMR rating</li>
+            <li><b>Catalyst &amp; demand</b> — new highs, supply/demand, market direction (N, S, M)</li>
+          </ul>
+        </div>
+        <div class="tf-core">
+          <div class="ring"><b>TECHNO<br>FUNDA</b><span>DUAL FILTER</span></div>
+          <div class="tf-arrow">→ then →</div>
+        </div>
+        <div class="tf-side tf-tech">
+          <div class="tf-eyebrow" style="color:var(--t1)">2 · The technical side — FTM Plus</div>
+          <div class="tf-q" style="color:var(--t1)">WHEN to buy &amp; sell</div>
+          <div class="tf-who">Timing and risk management. Executes on names already blessed.</div>
+          <ul class="tf-list">
+            <li><b>Price trend</b> — Stage 2 confirmed, above EMA 20/50 (Weinstein)</li>
+            <li><b>Volume</b> — RVOL, pocket pivots, the A/D money-flow score</li>
+            <li><b>Constructive base</b> — tight RMV, the pre-breakout <span style="color:var(--aqua);font-weight:700">WATCH</span> pivot (VCP-style)</li>
+            <li><b>Entry &amp; exit</b> — T1/T2/T3 ladder in, PT scale-out + ATR trail out</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tf-maxim">
+        Fundamentals tell you <span class="w">WHAT</span> to buy. Technicals tell you <span class="n">WHEN</span> to buy.
+        <small>MarketMerge answers the first sentence. FTM Plus answers the second. Run them in that order and each one covers the other's blind spot.</small>
+      </div>
+
+      <div class="tf-traps">
+        <div class="tf-trap a">
+          <h5 style="color:var(--t1)">Avoiding the “value trap” <span style="color:var(--dim);font-weight:600">— the fundamental flaw</span></h5>
+          <p><b>The problem:</b> great earnings on a chart stuck in a multi-year downtrend. The numbers look cheap all the way down.</p>
+          <div class="fix"><b style="color:var(--t1)">FTM prevents it</b> by refusing to fire entries outside an established uptrend — the T2/T3 tiers are hard-gated to <b>Stage 2</b>, and “No entry signals in Stage 4” blocks the falling-knife class outright.</div>
+        </div>
+        <div class="tf-trap b">
+          <h5 style="color:var(--lime)">Avoiding the “speculative bubble” <span style="color:var(--dim);font-weight:600">— the technical flaw</span></h5>
+          <p><b>The problem:</b> a beautiful breakout in a company with no earnings behind it. The pattern is real; the business isn't.</p>
+          <div class="fix"><b style="color:var(--lime)">MarketMerge prevents it</b> by requiring real earnings power before a name reaches the buy list — CANSLIM <b>6–7/7</b>, EPS acceleration and RS leadership, with the M-gate confirming the tape.</div>
+        </div>
+      </div>
+
+      <div class="tf-lineage">
+        <span style="color:var(--muted);font-weight:700">Lineage:</span>
+        <span class="chip"><b style="color:var(--lime)">CAN SLIM</b> · O'Neil — the fundamental screen behind MarketMerge</span>
+        <span class="chip"><b style="color:var(--t1)">SEPA / VCP</b> · Minervini — volatility contraction, mirrored by FTM's RMV + WATCH base</span>
+        <span class="chip"><b style="color:var(--t1)">Stage Analysis</b> · Weinstein — FTM's Stage 1–4 engine, buy only Stage 2 mark-ups</span>
+      </div>
+      <p class="section-sub" style="margin:12px 0 0">This isn't theory bolted on afterwards — it is why the <b style="color:var(--text)">Selection → Timing → Management</b> sequence below is ordered the way it is, and the <b style="color:var(--blue)">M-gate cohort test</b> further down is the measured version of the same claim: the fundamental/market filter roughly doubled per-trade expectancy on small caps, at the cost of taking fewer trades.</p>
+    </section>
 
     <section>
       <div class="section-label">Roles</div>
