@@ -261,6 +261,14 @@
     .tf-arrow { transform: rotate(90deg); margin: 2px 0; }
     .tf-traps { grid-template-columns: 1fr; }
   }
+  /* live-screen example */
+  .shotwrap { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #05070a; }
+  .shot { display: block; width: 100%; height: auto; }
+  .shotcap { font-size: 11px; color: var(--dim); padding: 8px 12px; border-top: 1px solid var(--border); background: var(--card); }
+  .keymap { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 10px; margin-top: 14px; }
+  .keyitem { border: 1px solid var(--border); border-left-width: 3px; border-radius: 10px; background: var(--card); padding: 12px 14px; }
+  .keyitem h5 { margin: 0 0 5px; font-size: 12px; font-weight: 800; letter-spacing: .2px; }
+  .keyitem p { margin: 0; font-size: 11.5px; color: var(--muted); line-height: 1.6; }
   h4.block { font-size: 14px; font-weight: 700; color: var(--lblue); margin: 22px 0 10px; }
   h4.block:first-of-type { margin-top: 0; }
   h4.block.c { color: #b9c4ff; }
@@ -954,6 +962,51 @@
           <div class="state-desc" style="color:#c3c9ff; font-size:12.5px"><b style="color:var(--t1)">“When do I enter, and when do I exit?”</b><br><br>Money-flow A/D score, pre-breakout WATCH, T1/T2/T3 entries, R1/A2/A3 adds, and a Profit-Taking Overlay (scale-out + ATR trail) that owns the exit — S1/S2/S3 print as advisory. Executes the trade on names MarketMerge already blessed.</div>
         </div>
       </div>
+    </section>
+
+
+    <section>
+      <div class="section-label">The Combined Screen</div>
+      <div class="section-title">What it actually looks like — a worked example</div>
+      <p class="section-sub">One chart, both indicators. <b style="color:var(--lime)">MarketMerge</b> occupies the left panel (selection &amp; conviction), <b style="color:var(--t1)">FTM Plus</b> the right-hand dashboard plus every label on the price chart (timing &amp; management). This is a real screen, not a mock-up — and it happens to catch the stack in its most instructive state.</p>
+
+      <div class="shotwrap">
+        <img class="shot" src="ftm-marketmerge-example.png" alt="DELL daily chart with the MarketMerge CANSLIM panel on the left, the FTM dashboard on the right, FTM entry/add and profit-taking labels on the price chart, the MCDX smart-money strip along the top, and a SPY market pane above.">
+        <div class="shotcap">DELL · 1D — MarketMerge panel (left) + FTM dashboard (right) + FTM labels &amp; MCDX strip on the chart, with SPY in the upper pane for market context.</div>
+      </div>
+
+      <div class="keymap">
+        <div class="keyitem" style="border-left-color:var(--blue)">
+          <h5 style="color:var(--blue)">① Top pane — SPY</h5>
+          <p>The market itself. This is what feeds MarketMerge's <b>M</b> (market-direction) gate and the distribution-day count — the switch that decides your position size.</p>
+        </div>
+        <div class="keyitem" style="border-left-color:var(--lime)">
+          <h5 style="color:var(--lime)">② Left — MarketMerge panel</h5>
+          <p>Ratings, CANSLIM checklist, earnings history and the workflow cues (<b>Size</b>, <b>FTM PT</b>, <b>Next ER</b>). Answers <em>is this worth owning</em>, and how hard to press.</p>
+        </div>
+        <div class="keyitem" style="border-left-color:var(--t1)">
+          <h5 style="color:var(--t1)">③ Right — FTM dashboard</h5>
+          <p>Flag cell, A/D Score, triggers, warnings, RVOL, RMV, Stage. Answers <em>is the chart ready right now</em> — the top cell here reads <span style="color:var(--aqua);font-weight:700">WATCH</span>.</p>
+        </div>
+        <div class="keyitem" style="border-left-color:var(--a2)">
+          <h5 style="color:var(--a2)">④ On the chart</h5>
+          <p>FTM's labels — adds (<b>A2/A3/R1</b>), profit-takes (<b>PT1/PT2</b>), the red <b>EXIT</b>, dotted PT target/trail lines, EMA 10/20/50 — plus the blue <b>MCDX</b> banker strip along the top and MarketMerge's green earnings-reaction boxes.</p>
+        </div>
+      </div>
+
+      <h4 class="block">Reading this exact screen</h4>
+      <div class="tablewrap"><table>
+        <tr><th style="width:150px">What it says</th><th>Why it matters</th></tr>
+        <tr><td><b style="color:var(--lime)">Score 6/7 · Edge 3/4</b><br><span style="color:var(--dim);font-size:11px">but M ✗, "WATCH · Market X"</span></td><td>The <em>company</em> passes — EPS accelerating <b>✓✓</b> (+38.9% → +56.7% → +281.3%), MM Trend <b>PASS</b>, Acc/Dis <b>A</b>. The <em>market</em> does not: M is <b>PRESSURE</b> with <b>7/25</b> distribution days. One red letter, and it's the one that gates everything.</td></tr>
+        <tr><td><b style="color:var(--yellow)">Size = HALF</b></td><td>This is the M-gate doing its job. Same name in a clean UPTREND would read <b>FULL ▲</b>. You are not being told to skip it — you are being told how hard to press.</td></tr>
+        <tr><td><b style="color:var(--aqua)">FTM = WATCH</b><br><span style="color:var(--dim);font-size:11px">RMV 5 VCP · Stage 2 · 0/6 warnings</span></td><td>No entry has fired. The base is coiling <em>tightly</em> — RMV <b>5</b> is the VCP zone, the tightest reading the indicator has — inside a confirmed Stage 2 uptrend with zero warnings. FTM is saying <b>get ready, don't chase</b>: rest a buy-stop at the pivot.</td></tr>
+        <tr><td><b>RVOL 0.65x</b></td><td>Volume has dried up into the coil — exactly what you want to see <em>before</em> a breakout, and why no T-tier has triggered yet (they all require volume).</td></tr>
+        <tr><td><b style="color:var(--blue)">RS 1M 50 vs RS 3M 99</b><br><span style="color:var(--dim);font-size:11px">RS Trend ▼ FALL</span></td><td>The fast/slow relative-strength split flags that leadership is <em>cooling short-term</em> even though the 3–6 month picture is near-perfect. Consistent with a pause, and a reason the Size cue isn't full.</td></tr>
+        <tr><td><b style="color:var(--green)">FTM PT = TRAIL-ONLY</b></td><td>MarketMerge's cue for FTM's exit dropdown: EPS is accelerating, so <em>let the runner run</em> rather than banking at fixed targets. ADR% <b>6.9</b> puts FTM's own Auto mode in trail-only anyway — the two agree.</td></tr>
+        <tr><td><b style="color:var(--blue)">MCDX B15 R0</b><br><span style="color:var(--dim);font-size:11px">Bank/Flow 56 ▲</span></td><td>The blue strip across the top: banker dominant, retail nowhere, volume flow rising. Strong hands are holding through the consolidation — confirmation, not a trigger.</td></tr>
+      </table></div>
+
+      <div class="callout lime" style="margin-top:14px"><b class="k">The whole thesis in one screen.</b> A high-quality, earnings-accelerating leader (MarketMerge's job to find) coiling in a textbook VCP base inside a Stage 2 uptrend (FTM's job to spot) — held back only by a weak tape, which is why the size cue says HALF rather than FULL. Neither indicator alone tells you that. <b style="color:var(--text)">Fundamentals said what; technicals said not yet; the market said half.</b></div>
     </section>
 
     <section>
