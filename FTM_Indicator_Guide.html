@@ -308,7 +308,7 @@
   <button class="tabbtn active" data-tab="wf">Workflow</button>
   <button class="tabbtn" data-tab="ftm">FTM Plus</button>
   <button class="tabbtn" data-tab="mm">MarketMerge</button>
-  <div class="ver">FTM v3.8.0 · MM v2.3</div>
+  <div class="ver">FTM v3.8.1 · MM v2.3</div>
 </nav>
 
 <div class="page">
@@ -496,20 +496,19 @@
         <div class="dash-card"><div class="dash-key">The Strip</div><div class="dash-val" style="color:var(--blue)">9-level heat band</div><div class="dash-desc">Pinned to the bottom of the chart. Blue = banker (smart money) in control; magenta/pink = retail crowd dominant; grey = balanced.</div></div>
         <div class="dash-card"><div class="dash-key">MCDX row</div><div class="dash-val">B# R#</div><div class="dash-desc">Banker and Retail levels on a 0–20 scale (blue = strong banker → grey → orange as retail takes over). Off by default.</div></div>
         <div class="dash-card"><div class="dash-key">Bank/Flow row</div><div class="dash-val">value ▲▼→</div><div class="dash-desc">A volume flow-stack value (0–100) with a direction arrow. Tints on an active banker-vs-flow divergence.</div></div>
-        <div class="dash-card"><div class="dash-key">Divergence markers</div><div class="dash-val" style="color:var(--blue)">▴ above strip</div><div class="dash-desc">A triangle when flow lifts off an extreme while price is still depressed — an early accumulation tell. Bull on by default.</div></div>
+        <div class="dash-card"><div class="dash-key">Divergence marker</div><div class="dash-val" style="color:var(--blue)">▴ above strip</div><div class="dash-desc">A triangle when flow lifts off its trough while price is still depressed — an early accumulation tell. Bull-only; the bear ▾ failed validation and was removed in v3.8.1.</div></div>
       </div>
       <h4 class="block" style="margin-top:26px">What the strip looks like on the chart</h4>
       <div class="mcdx-demo">
-        <div class="mcdx-marks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="color:#3179F5">▴</i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="color:#FF5252">▾</i><i></i><i></i></div>
+        <div class="mcdx-marks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="color:#3179F5">▴</i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="mcdx-row"><i style="background:#F06292"></i><i style="background:#F06292"></i><i style="background:#EB80A4"></i><i style="background:#EB80A4"></i><i style="background:#F06292"></i><i style="background:#EB80A4"></i><i style="background:#E69FB7"></i><i style="background:#E69FB7"></i><i style="background:#EB80A4"></i><i style="background:#E69FB7"></i><i style="background:#E0BDC9"></i><i style="background:#E0BDC9"></i><i style="background:#E69FB7"></i><i style="background:#E0BDC9"></i><i style="background:#DBDBDB"></i><i style="background:#DBDBDB"></i><i style="background:#E0BDC9"></i><i style="background:#DBDBDB"></i><i style="background:#B1C3E2"></i><i style="background:#DBDBDB"></i><i style="background:#B1C3E2"></i><i style="background:#B1C3E2"></i><i style="background:#86AAE8"></i><i style="background:#B1C3E2"></i><i style="background:#86AAE8"></i><i style="background:#86AAE8"></i><i style="background:#5C92EF"></i><i style="background:#86AAE8"></i><i style="background:#5C92EF"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i></div>
         <div class="mcdx-axis"><span>← earlier bars</span><span>a full rotation: retail-dominant → balanced → banker accumulation</span><span>latest →</span></div>
         <div class="mcdx-legend">
           <span style="color:var(--muted);font-weight:600">Level:</span><span><b style="background:#3179F5"></b>+4 banker max</span><span><b style="background:#86AAE8"></b>+2</span><span><b style="background:#DBDBDB"></b>0 balanced</span><span><b style="background:#E69FB7"></b>−2</span><span><b style="background:#F06292"></b>−4 retail max</span>
-          <span style="margin-left:8px"><span style="color:#3179F5;font-weight:700">▴</span> bull divergence (on by default)</span>
-          <span><span style="color:#FF5252;font-weight:700">▾</span> bear divergence (opt-in — failed validation)</span>
+          <span style="margin-left:8px"><span style="color:#3179F5;font-weight:700">▴</span> bull divergence — the only marker (bear removed v3.8.1)</span>
         </div>
       </div>
-      <p class="section-sub" style="margin:10px 0 0">Read it left-to-right as a <b style="color:var(--text)">rotation</b>: deep pink = the crowd is holding the tape, grey = balanced, deep blue = strong hands accumulating. The colour is <code>Banker − Retail</code> bucketed into 9 levels — so it deepens as dominance grows, not as price moves. The <span style="color:#3179F5;font-weight:700">▴</span> above the strip marks the <b style="color:var(--text)">bull divergence</b>: banker still pinned low while the pure-volume flow stack lifts off its 10-bar trough and the tape still looks weak — accumulation under a soft surface, which is exactly the handoff shown mid-strip here. <span style="color:#FF5252;font-weight:700">▾</span> is the bear mirror, <b>off by default</b> (it over-fired on mid-trend pullbacks in validation — use the S3→S2→S1 cascade for tops).</p>
+      <p class="section-sub" style="margin:10px 0 0">Read it left-to-right as a <b style="color:var(--text)">rotation</b>: deep pink = the crowd is holding the tape, grey = balanced, deep blue = strong hands accumulating. The colour is <code>Banker − Retail</code> bucketed into 9 levels — so it deepens as dominance grows, not as price moves. The <span style="color:#3179F5;font-weight:700">▴</span> above the strip marks the <b style="color:var(--text)">bull divergence</b>: banker still pinned low while the pure-volume flow stack lifts off its 10-bar trough and the tape still looks weak — accumulation under a soft surface, which is exactly the handoff shown mid-strip here. There is no bear counterpart: the ▾ mirror <b>failed validation</b> (it over-fired on mid-trend pullbacks and missed every real top — RSI-50 banker stays high through an entire uptrend), sat default-off from v3.3.6, and was <b>removed outright in v3.8.1</b>. For tops, use the S3→S2→S1 exit cascade.</p>
       <div class="infobar" style="background:var(--card2);border:1px solid var(--border);margin-top:16px;margin-bottom:0"><div class="ib-body"><strong>How to use it:</strong> treat the strip as confirmation, not a trigger. A blue strip under a fresh T entry = strong hands backing the move; a strip flipping magenta while you hold = the crowd taking over, a reason to tighten up.</div></div>
     </section>
 
@@ -625,8 +624,8 @@
     </section>
 
     <div class="footer" style="border:none;padding-top:8px">
-      <div style="font-size:13px;font-weight:700;color:var(--muted)">FTM Plus v3.8.0 · Flow / Trend / Momentum · by jackTD25</div>
-      <div style="font-size:10px;color:#484f58;margin-top:10px;line-height:1.6"><strong style="color:var(--muted)">Recent changelog —</strong> v3.8.0 opt-in earnings guard (display on MarketMerge) · v3.7.9 A1 + A4 removed (A1 dominated by R1, A4 no edge) · v3.7.8 buy-stop line render fix · v3.7.7 [+] badge now T1-only &amp; ES early-setup entry removed (WATCH kept) · v3.7.3 pre-breakout Setup/WATCH + buy-stop line + coiling-base screener · v3.7.0 universe-aware exit (Auto by ADR%) · v3.6.9 Trail-only PT mode · v3.6.8 T3 large-cap guard · v3.4.6 Profit-Taking Overlay · v3.4.5 entry ladder re-gated (RVOL + Stage 2) · v3.4 MCDX smart-money strip · v3.1.0 VGB [+] badge</div>
+      <div style="font-size:13px;font-weight:700;color:var(--muted)">FTM Plus v3.8.1 · Flow / Trend / Momentum · by jackTD25</div>
+      <div style="font-size:10px;color:#484f58;margin-top:10px;line-height:1.6"><strong style="color:var(--muted)">Recent changelog —</strong> v3.8.1 MCDX bear divergence removed (failed validation; bull ▴ unchanged) · v3.8.0 opt-in earnings guard (display on MarketMerge) · v3.7.9 A1 + A4 removed (A1 dominated by R1, A4 no edge) · v3.7.8 buy-stop line render fix · v3.7.7 [+] badge now T1-only &amp; ES early-setup entry removed (WATCH kept) · v3.7.3 pre-breakout Setup/WATCH + buy-stop line + coiling-base screener · v3.7.0 universe-aware exit (Auto by ADR%) · v3.6.9 Trail-only PT mode · v3.6.8 T3 large-cap guard · v3.4.6 Profit-Taking Overlay · v3.4.5 entry ladder re-gated (RVOL + Stage 2) · v3.4 MCDX smart-money strip · v3.1.0 VGB [+] badge</div>
     </div>
 
   </div>
@@ -910,7 +909,7 @@
   </div>
 
   <footer class="footer">
-    FTM Plus v3.8.0 (Flow · Trend · Momentum, Pine v5) &nbsp;+&nbsp; MarketMerge v2.3 (CANSLIM Data Panel, Pine v6)<br>
+    FTM Plus v3.8.1 (Flow · Trend · Momentum, Pine v5) &nbsp;+&nbsp; MarketMerge v2.3 (CANSLIM Data Panel, Pine v6)<br>
     MarketMerge selects · FTM times. Ratings are approximations — verify fundamentals at the source before sizing up.
   </footer>
 
