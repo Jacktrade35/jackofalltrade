@@ -195,6 +195,23 @@
   .ma-chip { display: flex; align-items: center; gap: 8px; background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; }
   .ma-line { width: 28px; height: 3px; border-radius: 2px; }
 
+  /* FTM dashboard replica — 2 columns (label | value), unlike MM's 4-col panel */
+  .prow2 { display: grid; grid-template-columns: 1.15fr 1fr; }
+  .prow2 > div { padding: 4px 7px; border-bottom: 1px solid rgba(88,101,111,0.35); border-right: 1px solid rgba(88,101,111,0.35); white-space: nowrap; overflow: hidden; }
+  .prow2 > div:last-child { border-right: none; }
+  .panel-narrow { max-width: 300px; }
+  .replica-ftm { grid-template-columns: 300px 1fr; }
+  @media (max-width: 920px) { .replica-ftm { grid-template-columns: 1fr; } .panel-narrow { max-width: 100%; } }
+  .chip-sig { display: inline-block; padding: 0 6px; border-radius: 3px; font-weight: 700; color: #0d0e2a; }
+  /* MCDX strip simulation */
+  .mcdx-demo { background: #0b0f14; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px 12px; }
+  .mcdx-row { display: flex; gap: 1px; }
+  .mcdx-row > i { flex: 1 1 0; height: 15px; display: block; font-style: normal; }
+  .mcdx-marks { display: flex; gap: 1px; height: 15px; margin-bottom: 3px; }
+  .mcdx-marks > i { flex: 1 1 0; font-style: normal; font-size: 14px; line-height: 15px; text-align: center; text-shadow: 0 0 6px currentColor; }
+  .mcdx-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--dim); margin-top: 6px; }
+  .mcdx-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; font-size: 11px; color: var(--muted); align-items: center; }
+  .mcdx-legend b { display: inline-block; width: 15px; height: 11px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
   h4.block { font-size: 14px; font-weight: 700; color: var(--lblue); margin: 22px 0 10px; }
   h4.block:first-of-type { margin-top: 0; }
   h4.block.c { color: #b9c4ff; }
@@ -288,9 +305,9 @@
 
 <nav class="topbar">
   <div class="brand"><span class="a">FTM Plus</span> <span class="x">+</span> <span class="b">MarketMerge</span></div>
-  <button class="tabbtn active" data-tab="ftm">FTM Plus</button>
+  <button class="tabbtn active" data-tab="wf">Workflow</button>
+  <button class="tabbtn" data-tab="ftm">FTM Plus</button>
   <button class="tabbtn" data-tab="mm">MarketMerge</button>
-  <button class="tabbtn" data-tab="wf">Workflow</button>
   <div class="ver">FTM v3.8.0 · MM v2.3</div>
 </nav>
 
@@ -299,7 +316,7 @@
   <!-- ============================================================ -->
   <!-- FTM PLUS TAB -->
   <!-- ============================================================ -->
-  <div class="tab-panel active" id="tab-ftm">
+  <div class="tab-panel" id="tab-ftm">
 
     <header class="hero">
       <div class="hero-title" style="color:var(--t1)">FTM <span style="color:var(--text)">Plus</span></div>
@@ -481,7 +498,19 @@
         <div class="dash-card"><div class="dash-key">Bank/Flow row</div><div class="dash-val">value ▲▼→</div><div class="dash-desc">A volume flow-stack value (0–100) with a direction arrow. Tints on an active banker-vs-flow divergence.</div></div>
         <div class="dash-card"><div class="dash-key">Divergence markers</div><div class="dash-val" style="color:var(--blue)">▴ above strip</div><div class="dash-desc">A triangle when flow lifts off an extreme while price is still depressed — an early accumulation tell. Bull on by default.</div></div>
       </div>
-      <div class="infobar" style="background:var(--card2);border:1px solid var(--border);margin-top:12px;margin-bottom:0"><div class="ib-body"><strong>How to use it:</strong> treat the strip as confirmation, not a trigger. A blue strip under a fresh T entry = strong hands backing the move; a strip flipping magenta while you hold = the crowd taking over, a reason to tighten up.</div></div>
+      <h4 class="block" style="margin-top:26px">What the strip looks like on the chart</h4>
+      <div class="mcdx-demo">
+        <div class="mcdx-marks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="color:#3179F5">▴</i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="color:#FF5252">▾</i><i></i><i></i></div>
+        <div class="mcdx-row"><i style="background:#F06292"></i><i style="background:#F06292"></i><i style="background:#EB80A4"></i><i style="background:#EB80A4"></i><i style="background:#F06292"></i><i style="background:#EB80A4"></i><i style="background:#E69FB7"></i><i style="background:#E69FB7"></i><i style="background:#EB80A4"></i><i style="background:#E69FB7"></i><i style="background:#E0BDC9"></i><i style="background:#E0BDC9"></i><i style="background:#E69FB7"></i><i style="background:#E0BDC9"></i><i style="background:#DBDBDB"></i><i style="background:#DBDBDB"></i><i style="background:#E0BDC9"></i><i style="background:#DBDBDB"></i><i style="background:#B1C3E2"></i><i style="background:#DBDBDB"></i><i style="background:#B1C3E2"></i><i style="background:#B1C3E2"></i><i style="background:#86AAE8"></i><i style="background:#B1C3E2"></i><i style="background:#86AAE8"></i><i style="background:#86AAE8"></i><i style="background:#5C92EF"></i><i style="background:#86AAE8"></i><i style="background:#5C92EF"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#5C92EF"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i><i style="background:#3179F5"></i></div>
+        <div class="mcdx-axis"><span>← earlier bars</span><span>a full rotation: retail-dominant → balanced → banker accumulation</span><span>latest →</span></div>
+        <div class="mcdx-legend">
+          <span style="color:var(--muted);font-weight:600">Level:</span><span><b style="background:#3179F5"></b>+4 banker max</span><span><b style="background:#86AAE8"></b>+2</span><span><b style="background:#DBDBDB"></b>0 balanced</span><span><b style="background:#E69FB7"></b>−2</span><span><b style="background:#F06292"></b>−4 retail max</span>
+          <span style="margin-left:8px"><span style="color:#3179F5;font-weight:700">▴</span> bull divergence (on by default)</span>
+          <span><span style="color:#FF5252;font-weight:700">▾</span> bear divergence (opt-in — failed validation)</span>
+        </div>
+      </div>
+      <p class="section-sub" style="margin:10px 0 0">Read it left-to-right as a <b style="color:var(--text)">rotation</b>: deep pink = the crowd is holding the tape, grey = balanced, deep blue = strong hands accumulating. The colour is <code>Banker − Retail</code> bucketed into 9 levels — so it deepens as dominance grows, not as price moves. The <span style="color:#3179F5;font-weight:700">▴</span> above the strip marks the <b style="color:var(--text)">bull divergence</b>: banker still pinned low while the pure-volume flow stack lifts off its 10-bar trough and the tape still looks weak — accumulation under a soft surface, which is exactly the handoff shown mid-strip here. <span style="color:#FF5252;font-weight:700">▾</span> is the bear mirror, <b>off by default</b> (it over-fired on mid-trend pullbacks in validation — use the S3→S2→S1 cascade for tops).</p>
+      <div class="infobar" style="background:var(--card2);border:1px solid var(--border);margin-top:16px;margin-bottom:0"><div class="ib-body"><strong>How to use it:</strong> treat the strip as confirmation, not a trigger. A blue strip under a fresh T entry = strong hands backing the move; a strip flipping magenta while you hold = the crowd taking over, a reason to tighten up.</div></div>
     </section>
 
     <!-- 6. DASHBOARD -->
@@ -489,6 +518,42 @@
       <div class="section-label">Section 6</div>
       <div class="section-title">Dashboard Readings</div>
       <p class="section-sub">The live table (top-right by default) updates every bar. To stay compact, the four A/D component rows (MFI/CMF/OBV/U-D Vol) and the two MCDX rows are <strong>hidden by default</strong> (v3.4.8) — enable them in the Display group.</p>
+      <div class="replica-wrap replica-ftm" style="margin-bottom:22px">
+        <div class="panel panel-narrow">
+          <div class="prow2 phead"><div class="lime">FTM</div><div><span class="chip-sig" style="background:#7C86FF">T1+</span></div></div>
+          <div class="prow2"><div class="lbl">A/D Score</div><div class="grn">78</div></div>
+          <div class="prow2"><div class="lbl">Triggers</div><div class="val">5/5</div></div>
+          <div class="prow2"><div class="lbl">Warnings</div><div class="grn">0/6</div></div>
+          <div class="prow2"><div class="lbl">RVOL</div><div class="grn">2.14x</div></div>
+          <div class="prow2"><div class="lbl">vs Bench</div><div class="grn">+4.82%</div></div>
+          <div class="prow2"><div class="lbl">ADR%</div><div class="grn">6.24%</div></div>
+          <div class="prow2"><div class="lbl">EMA50 Ext</div><div class="grn">2.1x</div></div>
+          <div class="prow2"><div class="lbl">RMV</div><div class="yel">8 tight</div></div>
+          <div class="prow2"><div class="lbl">Stage</div><div class="blu">Stage 2</div></div>
+          <div class="prow2"><div class="lbl">MCDX</div><div class="blu">B16 R4</div></div>
+          <div class="prow2"><div class="lbl">Bank/Flow</div><div class="grn">72 ▲</div></div>
+        </div>
+        <div>
+          <h4 class="block">Reading this panel top-down</h4>
+          <div class="tablewrap"><table>
+            <tr><th>Cell</th><th>What it says here</th></tr>
+            <tr><td><b>FTM</b> (signal)</td><td>The live flag. <span class="good">T1+</span> = max-conviction entry <em>with</em> the validated VGB badge — the size-up cue. Reads <span style="color:var(--aqua)">WATCH</span> when a coiling base is armed but nothing has fired, or <b>—</b> when idle.</td></tr>
+            <tr><td>A/D Score</td><td><span class="good">78</span> — accumulation zone (≥65 lime). Above the 70 gate that trigger #1 needs.</td></tr>
+            <tr><td>Triggers</td><td><span class="good">5/5</span> — all five entry triggers on, which is what makes this a T1 rather than T2/T3.</td></tr>
+            <tr><td>Warnings</td><td><span class="good">0/6</span> — nothing deteriorating. Colour escalates green → yellow → orange → red as they stack.</td></tr>
+            <tr><td>RVOL</td><td><span class="good">2.14x</span> — well over the 1.5 threshold, so the volume qualifier is satisfied.</td></tr>
+            <tr><td>vs Bench</td><td><span class="good">+4.82%</span> — leading SPY, so the relative-strength trigger is on.</td></tr>
+            <tr><td>ADR%</td><td><span class="good">6.24%</span> — above the 5% line, so this is a high-ADR momentum name: T3 is permitted and the PT overlay runs <b>Trail-only</b> under Auto.</td></tr>
+            <tr><td>EMA50 Ext</td><td><span class="good">2.1x</span> ATRs above EMA50 — healthy, room to run. At <b>≥7x</b> it reads "trim" (trim-into-strength, <em>not</em> a sell).</td></tr>
+            <tr><td>RMV</td><td><span style="color:var(--yellow)">8 tight</span> — compressed range, so the label earns a <b>[*]</b> tag. <b>≤5</b> shows "VCP", <b>&gt;40</b> shows "ext" (chase risk).</td></tr>
+            <tr><td>Stage</td><td><span style="color:var(--blue)">Stage 2</span> — the only stage T2/T3 will fire in, and the one you want to hold in.</td></tr>
+            <tr><td>MCDX / Bank&#8203;/Flow</td><td><span style="color:var(--blue)">B16 R4</span> + <span class="good">72 ▲</span> — banker dominant and the volume flow stack rising: strong hands behind the move. Both rows are <b>off by default</b> (Display group).</td></tr>
+          </table></div>
+          <div class="callout lime" style="margin-top:14px"><b class="k">The one-glance read.</b> Top cell tells you <em>what fired</em>; A/D + Triggers tell you <em>why</em>; Warnings + RMV + Stage tell you <em>whether to trust it</em>; ADR% tells you <em>which exit mode</em> the overlay will use. Everything else is supporting detail.</div>
+          <p class="section-sub" style="margin:12px 0 0">Hidden by default and not shown above: the four A/D component rows (MFI / CMF / OBV / U-D Vol). Turn them on in the Display group when you want to audit <em>why</em> the score is what it is.</p>
+        </div>
+      </div>
+      <h4 class="block">Every cell, in detail</h4>
       <div class="dash-grid">
         <div class="dash-card"><div class="dash-key">A/D Score</div><div class="dash-val" style="color:var(--green)">0 – 100</div><div class="dash-desc">Composite accumulation/distribution. Green → cyan → orange → red as flow deteriorates. The single most important number.</div></div>
         <div class="dash-card"><div class="dash-key">Triggers</div><div class="dash-val" style="color:var(--blue)">X / 5</div><div class="dash-desc">Active entry triggers. 5/5 = T1 eligible, 4/5 = T2, 3/5 = T3. Watch it climb as a setup develops.</div></div>
@@ -755,7 +820,7 @@
   <!-- ============================================================ -->
   <!-- WORKFLOW TAB -->
   <!-- ============================================================ -->
-  <div class="tab-panel" id="tab-wf">
+  <div class="tab-panel active" id="tab-wf">
 
     <header class="hero">
       <div class="hero-title">MarketMerge <span style="color:var(--muted); font-weight:600">selects</span> · FTM <span style="color:var(--muted); font-weight:600">times</span></div>
