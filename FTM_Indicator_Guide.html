@@ -74,6 +74,11 @@
   .tabbtn.active[data-tab="mm"]  { color: var(--lime); border-bottom-color: var(--lime); }
   .tabbtn.active[data-tab="wf"]  { color: var(--blue); border-bottom-color: var(--blue); }
   .ver { margin-left: auto; font-size: 11px; color: var(--muted); background: #21262d; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; white-space: nowrap; }
+  .tvlink .tv-mini { display: none; }
+  @media (max-width: 700px) {
+    .tvlink .tv-full { display: none; }
+    .tvlink .tv-mini { display: inline; }
+  }
   /* Mobile: the nav row (brand + tabs + version badge) was forcing the whole page to
      ~714px and giving every tab a horizontal scroll. Tighten it and drop the badge. */
   @media (max-width: 700px) {
@@ -83,6 +88,7 @@
     .topbar > * { flex: 0 0 auto; }
     .brand { font-size: 13px; padding: 12px 12px 12px 0; margin-right: 6px; }
     .ver { display: none; }
+    .tvlink { display: inline-block; }   /* keep the TradingView link, collapsed to "TradingView ↗" */
     .tabbtn { padding-left: 10px; padding-right: 10px; font-size: 12.5px; }
   }
 
@@ -365,7 +371,7 @@
   <button class="tabbtn active" data-tab="wf">Workflow</button>
   <button class="tabbtn" data-tab="ftm">FTM Plus</button>
   <button class="tabbtn" data-tab="mm">MarketMerge</button>
-  <a class="ver" href="https://www.tradingview.com/u/jackTD25/#published-scripts" target="_blank" rel="noopener" style="margin-left:auto; color:var(--blue); border-color:#2a4a7a; text-decoration:none; font-weight:600">Get the indicators on TradingView ↗</a>
+  <a class="ver tvlink" href="https://www.tradingview.com/u/jackTD25/#published-scripts" target="_blank" rel="noopener" style="margin-left:auto; color:var(--blue); border-color:#2a4a7a; text-decoration:none; font-weight:600"><span class="tv-full">Get the indicators on TradingView</span><span class="tv-mini">TradingView</span> ↗</a>
   <div class="ver" style="margin-left:8px">FTM+ v1.1 · MM v2.4</div>
 </nav>
 
